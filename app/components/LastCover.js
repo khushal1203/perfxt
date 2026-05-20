@@ -13,17 +13,6 @@ export default function LastCover() {
           sizes="100vw"
         />
 
-        {/* Right image */}
-        <div className="lastcover-right">
-          <Image
-            src="/images/home/last1.svg"
-            alt=""
-            width={866}
-            height={959}
-            className="lastcover-right-img"
-          />
-        </div>
-
         {/* Left content */}
         <div className="lastcover-left">
           <div className="lastcover-top">
@@ -46,6 +35,17 @@ export default function LastCover() {
               <span>Open App Store</span>
             </a>
           </div>
+        </div>
+
+        {/* Right image */}
+        <div className="lastcover-right">
+          <Image
+            src="/images/home/last1.svg"
+            alt=""
+            width={866}
+            height={959}
+            className="lastcover-right-img"
+          />
         </div>
       </div>
     </section>

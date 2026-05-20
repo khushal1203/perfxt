@@ -29,12 +29,11 @@ export default function AICover() {
       <div className="aicover-box">
         <Image
           src="/images/home/aicover.png"
-          alt="AI Cover"
+          alt=""
           fill
           className="aicover-bg"
           priority
         />
-
         {/* Top content box */}
         <div className="aicover-top-box">
           <div className="aicover-heading-group">

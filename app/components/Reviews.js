@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const reviews = [
   {
@@ -50,7 +50,15 @@ const images = [
 
 export default function Reviews() {
   const [start, setStart] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const total = reviews.length;
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 480);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   const prev = () => setStart((p) => (p - 1 + total) % total);
   const next = () => setStart((p) => (p + 1) % total);
@@ -61,7 +69,11 @@ export default function Reviews() {
     <section className="reviews-section">
       <div className="reviews-images-wrapper">
         {images.map((img, i) => (
-          <div key={i} className="reviews-img-item" style={{ top: img.top, left: `${(img.left / 1420) * 100}%` }}>
+          <div
+            key={i}
+            className={`reviews-img-item reviews-img-${i + 1}`}
+            style={isMobile ? {} : { top: img.top, left: `${(img.left / 1420) * 100}%` }}
+          >
             <img src={img.src} alt={`review ${i + 1}`} width={220} height={220} />
           </div>
         ))}
@@ -78,9 +90,20 @@ export default function Reviews() {
         </p>
       </div>
 
+      {/* Mobile: arrows above all cards */}
+      <div className="reviews-nav-mobile">
+        <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
+          <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
+        </button>
+        <button className="reviews-nav-btn" onClick={next} aria-label="Next">
+          <img src="/images/home/rev9.svg" alt="next" width={32} height={32} />
+        </button>
+      </div>
+
       <div className="reviews-cards-row">
         {visible.map((r, i) => (
           <div key={`${start}-${i}`} className={`reviews-card-wrapper${i === 1 ? " reviews-card-wrapper--mid" : ""}`}>
+            {/* Desktop: arrows only above middle card */}
             {i === 1 && (
               <div className="reviews-card-icons">
                 <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">

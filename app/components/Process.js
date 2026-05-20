@@ -47,7 +47,7 @@ export default function Process() {
         <h2 className="process-heading">
           Simple
           <span className="process-heading-img">
-            <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline style={{ width: "auto", height: "100%", borderRadius: "10%" }} />
+            <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline className="process-heading-video" />
           </span>
           Process
         </h2>

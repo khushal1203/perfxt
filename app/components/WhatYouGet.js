@@ -95,7 +95,8 @@ export default function WhatYouGet() {
             alt="What you get visual"
             width={477}
             height={740}
-            style={{ width: "100%", height: "90%", objectFit: "contain", objectPosition: "bottom" }}
+            className="wyg-card-right-img"
+            style={{ width: 'auto', height: '100%', maxWidth: '100%', display: 'block' }}
           />
         </div>
       </div>
@@ -108,7 +109,8 @@ export default function WhatYouGet() {
             alt="What you get visual"
             width={477}
             height={740}
-            style={{ width: "100%", height: "90%", objectFit: "contain", objectPosition: "bottom" }}
+            className="wyg-card2-img-el"
+            style={{ width: 'auto', height: '100%', maxWidth: '100%', display: 'block' }}
           />
         </div>
 
