@@ -7,19 +7,19 @@ const cards = [
     desc: "Your wearable gives you numbers, not answers. HRV, heart rate, sleep scores - but no clear action to take.",
   },
   {
-    icon: "/images/home/vicon1.svg",
-    title: "Data without direction",
-    desc: "Your wearable gives you numbers, not answers. HRV, heart rate, sleep scores - but no clear action to take.",
+    icon: "/images/home/vicon2.svg",
+    title: "You're tired even with low strain",
+    desc: "Meetings, deadlines, and mentalload drain you just as much astraining - but no tool tracks all of it.",
   },
   {
-    icon: "/images/home/vicon1.svg",
-    title: "Data without direction",
-    desc: "Your wearable gives you numbers, not answers. HRV, heart rate, sleep scores - but no clear action to take.",
+    icon: "/images/home/vicon3.svg",
+    title: "Wrong timing, every day",
+    desc: "You push hardest when you're mostdepleted. Your schedule ignoresrecovery and you only notice at theend of the week.",
   },
   {
-    icon: "/images/home/vicon1.svg",
-    title: "Data without direction",
-    desc: "Your wearable gives you numbers, not answers. HRV, heart rate, sleep scores - but no clear action to take.",
+    icon: "/images/home/viocn4.svg",
+    title: "Incomplete recovery picture",
+    desc: "Existing dashboards only show partof the picture. Real readinessrequires connecting workouts,sleep, stress, and daily load.",
   },
 ];
 

@@ -18,8 +18,11 @@ const N_DOTS = 5;
 const DUR    = 14;
 const STEP   = DUR / N_DOTS;
 
-const TAG_W = 305;
 const TAG_H = 34;
+const ICON_W = 20;
+const PAD_L = 10;
+const PAD_R = 12;
+const CHAR_W = 7.5;
 
 const TAG_LINES = [
   {
@@ -59,24 +62,26 @@ const TAG_LINES = [
   },
 ];
 
-function XIcon({ cx, cy, color }) {
-  const o = 3.5;
-  return (
-    <g>
-      <circle cx={cx} cy={cy} r={8} fill={color} />
-      <line x1={cx - o} y1={cy - o} x2={cx + o} y2={cy + o} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-      <line x1={cx + o} y1={cy - o} x2={cx - o} y2={cy + o} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-    </g>
-  );
-}
-
-function Tag({ x, y, text, color, bg, borderColor }) {
+function Tag({ x, y, text, color, bg, borderColor, isBlue }) {
+  const textW = text.length * CHAR_W;
+  const iconW = ICON_W + 6;
+  const tagW = PAD_L + iconW + textW + PAD_R;
   return (
     <g transform={`translate(${x}, ${y - TAG_H / 2})`}>
-      <rect width={TAG_W} height={TAG_H} rx="10" fill={bg} stroke={borderColor} strokeWidth="1" />
-      <XIcon cx={18} cy={TAG_H / 2} color={color} />
+      <rect width={tagW} height={TAG_H} rx="10" fill={bg} stroke={borderColor} strokeWidth="1" />
+      {isBlue ? (
+        <g transform={`translate(${PAD_L}, ${(TAG_H - 16) / 2})`}>
+          <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke={color} strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
+        </g>
+      ) : (
+        <g>
+          <circle cx={PAD_L + 9} cy={TAG_H / 2} r={8} fill={color} />
+          <line x1={PAD_L + 5.5} y1={TAG_H / 2 - 3.5} x2={PAD_L + 12.5} y2={TAG_H / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1={PAD_L + 12.5} y1={TAG_H / 2 - 3.5} x2={PAD_L + 5.5} y2={TAG_H / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+        </g>
+      )}
       <text
-        x="34"
+        x={PAD_L + iconW}
         y={TAG_H / 2}
         fontFamily="Inter, sans-serif"
         fontSize="14"
@@ -134,8 +139,8 @@ export default function Framer() {
               <g key={lineIdx}>
                 <Tag x={ox1} y={y} text={ot1} color={ORANGE} bg="#FCEFEC" borderColor="#E05C3B4D" />
                 <Tag x={ox2} y={y} text={ot2} color={ORANGE} bg="#FCEFEC" borderColor="#E05C3B4D" />
-                <Tag x={bx1} y={y} text={bt1} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" />
-                <Tag x={bx2} y={y} text={bt2} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" />
+                <Tag x={bx1} y={y} text={bt1} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" isBlue />
+                <Tag x={bx2} y={y} text={bt2} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" isBlue />
               </g>
             );
           })}

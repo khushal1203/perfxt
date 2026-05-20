@@ -5,16 +5,16 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 const cards = [
-  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET" },
-  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY" },
-  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%", label: "AM READINESS" },
-  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY" },
-  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT" },
-  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET" },
-  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY" },
-  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%", label: "AM READINESS" },
-  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY" },
-  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT" },
+  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET",      icon: "/images/home/imgeicon1.svg" },
+  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY", icon: "/images/home/imageicon2.svg" },
+  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%", label: "AM READINESS",     icon: "/images/home/imgeicon3.svg" },
+  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY",       icon: "/images/home/imageiocn4.svg" },
+  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT",       icon: "/images/home/imageicon5.svg" },
+  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET",      icon: "/images/home/imgeicon1.svg" },
+  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY", icon: "/images/home/imageicon2.svg" },
+  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%", label: "AM READINESS",     icon: "/images/home/imgeicon3.svg" },
+  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY",       icon: "/images/home/imageiocn4.svg" },
+  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT",       icon: "/images/home/imageicon5.svg" },
 ];
 
 export default function Decide() {
@@ -65,7 +65,7 @@ export default function Decide() {
                 <div className="decide-card-content">
                   <h2 className="decide-card-title">{card.title}</h2>
                   <div className="decide-bottom-box">
-                    <div className="decide-icon-box">⌘</div>
+                    <div className="decide-icon-box"><img src={card.icon} alt="" /></div>
                     <div className="decide-info">
                       <span>{card.label}</span>
                       <h3>{card.stat}</h3>

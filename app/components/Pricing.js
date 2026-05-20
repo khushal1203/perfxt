@@ -11,13 +11,24 @@ const features = [
   "7-day free trial included",
 ];
 
-function PricingCard({ plan, price, period, desc, billing, highlight }) {
+const yearlyFeatures = [
+  "Unlimited integrations (Oura, Whoop, Apple, Garmin…)",
+  "Advanced KPI insights",
+  "Unlimited conversations with AI Assistant",
+  "Daily check-in & reflection",
+  "KPI tracker",
+  "AI meeting summaries",
+  "Google Calendar sync",
+  "Weekly performance report",
+];
+
+function PricingCard({ plan, price, desc, highlight, featureList, icon }) {
   return (
     <div className={`pc-card${highlight ? " pc-card--highlight" : ""}`}>
       {/* Top row: plan badge + calendar icon */}
       <div className="pc-card-top">
         <span className="pc-plan-badge">{plan}</span>
-        <Image src="/images/home/cicon1.svg" alt="calendar" width={20} height={20} />
+        <Image src={icon} alt="calendar" width={20} height={20} />
       </div>
 
       {/* Price block */}
@@ -39,9 +50,9 @@ function PricingCard({ plan, price, period, desc, billing, highlight }) {
       <div className="pc-features">
         <p className="pc-features-title">What you get</p>
         <div className="pc-features-list">
-          {features.map((f, i) => (
+          {featureList.map((f, i) => (
             <div key={i} className="pc-feature-row">
-              <Image src="/images/home/wicon1.svg" alt="check" width={16} height={16} />
+              <Image src="/images/home/picon.svg" alt="check" width={16} height={16} style={{ flexShrink: 0 }} />
               <span className="pc-feature-text">{f}</span>
             </div>
           ))}
@@ -99,18 +110,19 @@ export default function Pricing() {
         <div className="pricing-cards-row">
           <PricingCard
             plan="Monthly Plan"
-            price={billing === "yearly" ? "7" : "14"}
-            period="month"
+            price="7"
             desc="Everything to start. Cancel anytime."
-            billing={billing}
+            highlight={billing === "monthly"}
+            featureList={features}
+            icon="/images/home/celender.svg"
           />
           <PricingCard
-            plan="Monthly Plan"
-            price={billing === "yearly" ? "7" : "14"}
-            period="month"
-            desc="Everything to start. Cancel anytime."
-            billing={billing}
-            highlight
+            plan="Yearly Plan"
+            price="14"
+            desc="Less than a coffee a week. Lock the 50% rate forever."
+            highlight={billing === "yearly"}
+            featureList={yearlyFeatures}
+            icon="/images/home/vicon2.svg"
           />
         </div>
       </div>

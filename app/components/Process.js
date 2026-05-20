@@ -12,18 +12,18 @@ const steps = [
   {
     number: "02",
     icon: "/images/home/cicon2.svg",
-    title: "Connect your data",
-    desc: "Link your wearable and calendar. Perfxt pulls in your",
-    desc2: "body data and schedule automatically.",
-    tags: ["Apple Health", "Google Fit", "Whoop"],
+    title: "Connect your life",
+    desc: "Download the app, create your profile, and tell us what kind ",
+    desc2: "of work actually matters to you.",
+    tags: ["Apple Health", "Oura", "Whoop","Garmin","Google Calendar"],
   },
   {
     number: "03",
     icon: "/images/home/cicon3.svg",
-    title: "Get your daily plan",
-    desc: "Every morning, Perfxt tells you what your body is ready for",
-    desc2: "and how to structure your day.",
-    tags: ["Daily Brief", "Focus Blocks", "Recovery"],
+    title: "Get today's playbook",
+    desc: "Perfxt analyzes your patterns and tells you when to",
+    desc2: "train, focus, take meetings, or protect recovery.",
+    tags: ["Every Morning", "Health", "Fitness"],
   },
 ];
 
@@ -47,7 +47,7 @@ export default function Process() {
         <h2 className="process-heading">
           Simple
           <span className="process-heading-img">
-            <Image src="/images/home/micon3.svg" alt="" width={160} height={160} style={{ width: "auto", height: "160px" }} />
+            <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline style={{ width: "auto", height: "100%", borderRadius: "10%" }} />
           </span>
           Process
         </h2>

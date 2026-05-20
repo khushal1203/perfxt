@@ -42,8 +42,8 @@ export default function LastCover() {
               <span>Try Perfxt free</span>
             </a>
             <a href="#" className="lastcover-btn lastcover-btn--outline">
-              <Image src="/images/home/r.svg" alt="" width={24} height={24} style={{filter: 'brightness(0) invert(1)'}} />
-              <span>Try Perfxt free</span>
+              <Image src="/images/home/app.svg" alt="" width={24} height={24} style={{filter: 'brightness(0) invert(1)'}} />
+              <span>Open App Store</span>
             </a>
           </div>
         </div>

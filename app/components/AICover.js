@@ -6,20 +6,20 @@ const cards = [
     desc: "Start your day with clarity, end with reflection. Plan tasks, review progress, reset intentions.",
   },
   {
-    title: "Sleep Tracking",
-    desc: "Monitor your sleep cycles and wake up refreshed. Get personalized tips to improve rest quality.",
+    title: "Smart Scheduling",
+    desc: "Perfxt learns your habits and suggests the ideal time for deep work, meetings, and recovery.",
   },
   {
-    title: "AI Scheduling",
-    desc: "Let AI plan your perfect day based on your energy levels, priorities, and recovery data.",
+    title: "Productivity Heatmap",
+    desc: "Visualise your high-focus time windows to protect your most productive hours and cut distractions.",
   },
   {
-    title: "Recovery Insights",
-    desc: "Understand your body's readiness. Optimize workouts and rest days with smart recovery scores.",
+    title: "AI-Powered Feedback",
+    desc: "Meeting summaries, efficiency scores, and actionable insights to make every call count.",
   },
   {
-    title: "Weekly Reports",
-    desc: "Get a full breakdown of your week — habits, performance, sleep, and personalized next steps.",
+    title: "Chat First",
+    desc: "Skip the logging. Just tell the assistant what you did - it keeps track and learns.",
   },
 ];
 
@@ -55,7 +55,7 @@ export default function AICover() {
           {cards.map((card, i) => (
             <div key={i} className="aicover-card">
               <div className="aicover-card-icon">
-                <Image src="/images/home/right.svg" alt="" width={18} height={18} />
+                <Image src={`/images/home/aicover${i + 1}.svg`} alt="" width={18} height={18} />
               </div>
               <div className="aicover-card-body">
                 <p className="aicover-card-title">{card.title}</p>

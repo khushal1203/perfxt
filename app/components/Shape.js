@@ -26,7 +26,7 @@ export default function Shape() {
             <span>Try Perfxt Today</span>
           </a>
           <a href="#" className="shape-btn shape-btn--outline">
-            <Image src="/images/home/icon3.svg" alt="Talk" width={24} height={24} />
+            <Image src="/images/home/icon4.svg" alt="Talk" width={24} height={24} />
             <span>Explore Features</span>
           </a>
         </div>

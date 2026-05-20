@@ -1,3 +1,5 @@
+"use client";
+import { useState } from "react";
 import Image from "next/image";
 
 const tabs = ["First Day", "First Week", "First Month", "First Year"];
@@ -8,12 +10,24 @@ const features = [
   "Track your performance and improve every week.",
 ];
 
+const weekFeatures = [
+  "See whether morning training helps your workday or drains it",
+  "Start spotting whether too many calls or meetings hurt your focus",
+  "Learn when you are usually best for deep work, admin, training, or recovery",
+];
+
+const weekStats = [
+  { value: "-42%", label: "Meeting waste" },
+  { value: "-83%", label: "Burnout flags" },
+];
+
 const stats = [
   { value: "-37%", label: "Meeting waste" },
   { value: "+24%", label: "Deep work time" },
 ];
 
 export default function WhatYouGet() {
+  const [activeTab, setActiveTab] = useState(0);
   return (
     <section className="wyg-wrapper">
       {/* Top heading box */}
@@ -30,7 +44,7 @@ export default function WhatYouGet() {
 
         <div className="wyg-tabs">
           {tabs.map((tab, i) => (
-            <div key={tab} className={`wyg-tab${i === 0 ? " wyg-tab--active" : ""}`}>
+            <div key={tab} className={`wyg-tab${i === activeTab ? " wyg-tab--active" : ""}`} onClick={() => setActiveTab(i)} style={{ cursor: "pointer" }}>
               {tab}
             </div>
           ))}
@@ -102,10 +116,10 @@ export default function WhatYouGet() {
         <div className="wyg-card2-content">
           <div className="wyg-card-heading-group">
             <p className="wyg-card-label">First Week</p>
-            <h3 className="wyg-card-heading wyg-card-heading--orange">Build habits that actually stick</h3>
+            <h3 className="wyg-card-heading wyg-card-heading--orange">Start noticing what helps or hurts your performance</h3>
           </div>
           <div className="wyg-card-features">
-            {features.map((text, i) => (
+            {weekFeatures.map((text, i) => (
               <div key={i} className="wyg-card-feature-row">
                 <Image src="/images/home/wicon2.svg" alt="" width={20} height={20} />
                 <span className="wyg-card-feature-text">{text}</span>
@@ -114,11 +128,11 @@ export default function WhatYouGet() {
           </div>
           <div className="wyg-card-quote wyg-card-quote--orange">
             <p className="wyg-card-quote-text">
-              &ldquo;Within a week I had a clear picture of my energy patterns - it changed how I plan my work.&rdquo;
+              &ldquo;“Perfxt helped me stop guessing - I finally know which days I can actually push and which I shouldn't.&rdquo;
             </p>
           </div>
           <div className="wyg-card-stats">
-            {stats.map((stat) => (
+            {weekStats.map((stat) => (
               <div key={stat.label} className="wyg-card-stat">
                 <p className="wyg-card-stat-value">{stat.value}</p>
                 <p className="wyg-card-stat-label">{stat.label}</p>
