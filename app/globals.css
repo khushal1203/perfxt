@@ -395,7 +395,7 @@ main > .framer-section {
   align-items: center;
   gap: 60px;
   overflow: visible;
-  height: auto;
+  /* height: auto; */
 }
 
 .decide-top-box {
@@ -477,23 +477,16 @@ main > .framer-section {
   pointer-events: none;
 }
 
-/* ── Decide Cards Frame ── */
-.decide-cards-frame {
-  position: relative;
-  width: 100%;
-  height: 912px;
-  overflow: visible;
-}
 
 /* ── Decide Slider ── */
 .decide-slider-wrapper {
   width: 100%;
-  padding: 0;
-  overflow: hidden;
+  padding: 40px 0 0px;
+  overflow: visible;
 }
 
 .decide-slide-item {
-  padding: 0;
+  padding: 0 10px;
   transition: 0.5s ease;
   overflow: visible;
 }
@@ -509,23 +502,80 @@ main > .framer-section {
 }
 
 .decide-slider-wrapper .slick-list {
-  overflow: hidden;
-  padding: 50px 0 !important;
+  overflow: visible;
 }
 
-.decide-slider-wrapper .slick-track {
-  background: transparent;
+.decide-card-overlay-new {
+  display: none;
+}
+
+.decide-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.decide-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 22px;
+  color: white;
+  z-index: 2;
+}
+
+.decide-card-title {
+  font-size: 24px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  font-family: "Outfit", sans-serif;
+}
+
+.decide-bottom-box {
+  background: rgba(76, 59, 255, 0.75);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.decide-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   display: flex;
   align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 20px;
+}
+
+.decide-info {
+  text-align: right;
+  color: white;
+}
+
+.decide-info span {
+  font-size: 11px;
+  opacity: 0.7;
+  font-family: "Inter", sans-serif;
+}
+
+.decide-info h3 {
+  font-size: 38px;
+  margin-top: 4px;
+  font-family: "Outfit", sans-serif;
 }
 
 /* center card */
 .decide-slider-wrapper .slick-center .decide-card-new {
   transform: none;
   z-index: 20;
-  padding: 0 7px;
-  width: 100%;
-  height: 560px;
 }
 
 /* img2 - left of center */
