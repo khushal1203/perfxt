@@ -16,6 +16,8 @@ import Reviews from "./components/Reviews";
 import Framer from "./components/Framer";
 import AnimateOnScroll from "./components/AnimateOnScroll";
 
+
+
 export default function Home() {
   return (
     <main>
