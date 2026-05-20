@@ -28,6 +28,7 @@ export default function Decide() {
     arrows: false,
     swipeToSlide: true,
     focusOnSelect: true,
+    initialSlide: 2,
     responsive: [
       { breakpoint: 1200, settings: { slidesToShow: 3, centerPadding: "0px" } },
       { breakpoint: 768,  settings: { slidesToShow: 1, centerPadding: "0px" } },
@@ -48,9 +49,16 @@ export default function Decide() {
       </div>
 
       <div className="decide-slider-wrapper">
+        <style>{`
+          .decide-slider-wrapper .slick-slide.slick-active {
+            outline: none;
+            width: 333px !important;
+          }
+        `}</style>
         <Slider {...settings}>
           {cards.map((card, i) => (
             <div key={i} className="decide-slide-item">
+              <div className="decide-card-transform">
               <div className="decide-card-new">
                 <img src={card.src} alt={card.title} className="decide-card-img" />
                 <div className="decide-card-overlay-new" />
@@ -64,6 +72,7 @@ export default function Decide() {
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
             </div>
           ))}

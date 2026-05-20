@@ -481,29 +481,38 @@ main > .framer-section {
 /* ── Decide Slider ── */
 .decide-slider-wrapper {
   width: 100%;
-  padding: 40px 0 0px;
+  padding: 20px 0 0px;
   overflow: visible;
 }
 
+.decide-slider-wrapper .slick-list {
+  overflow: visible !important;
+  padding-top: 10px !important;
+}
+
 .decide-slide-item {
-  padding: 0 10px;
+  padding: 0;
   transition: 0.5s ease;
   overflow: visible;
 }
 
 .decide-card-new {
-  height: 560px;
   border-radius: 20px;
-  overflow: hidden;
-  position: relative;
+  width: 335px;
+  height: 560px;
   margin: auto;
-  transition: 0.5s ease;
-  width: 315px;
+  transition: all 0.5s;
+  position: relative;
+  overflow: hidden;
 }
 
-.decide-slider-wrapper .slick-list {
-  overflow: visible;
+.decide-card-transform {
+  transition: all 0.5s;
+  margin: auto;
+  width: 335px;
 }
+
+
 
 .decide-card-overlay-new {
   display: none;
@@ -572,40 +581,51 @@ main > .framer-section {
   font-family: "Outfit", sans-serif;
 }
 
+.decide-slider-wrapper .slick-slide.slick-active {
+  outline: none;
+}
+
 /* center card */
-.decide-slider-wrapper .slick-center .decide-card-new {
+.decide-slider-wrapper .slick-center .decide-card-transform {
   transform: none;
   z-index: 20;
+  padding-top: 30px;
 }
 
 /* img2 - left of center */
-.decide-slider-wrapper .slick-slide:has(+ .slick-center) .decide-card-new {
+.decide-slider-wrapper .slick-slide:has(+ .slick-center) .decide-card-transform {
   transform: perspective(1200px) rotateY(15deg);
-  height: 500px;
   padding-top: 20px;
+}
+.decide-slider-wrapper .slick-slide:has(+ .slick-center) .decide-card-new {
+  height: 500px;
 }
 
 /* img1 - far left */
-.decide-slider-wrapper .slick-slide:has(+ * + .slick-center) .decide-card-new {
+.decide-slider-wrapper .slick-slide:has(+ * + .slick-center) .decide-card-transform {
   transform: perspective(1200px) rotateY(15deg);
+}
+.decide-slider-wrapper .slick-slide:has(+ * + .slick-center) .decide-card-new {
+  width: 335px;
   height: 400px;
-  width: 315px;
-  padding: 0;
 }
 
 /* img4 - right of center */
-.decide-slider-wrapper .slick-center + .slick-slide .decide-card-new {
+.decide-slider-wrapper .slick-center + .slick-slide .decide-card-transform {
   transform: perspective(1200px) rotateY(-15deg);
-  height: 500px;
   padding-top: 20px;
+}
+.decide-slider-wrapper .slick-center + .slick-slide .decide-card-new {
+  height: 500px;
 }
 
 /* img5 - far right */
-.decide-slider-wrapper .slick-center + .slick-slide + .slick-slide .decide-card-new {
+.decide-slider-wrapper .slick-center + .slick-slide + .slick-slide .decide-card-transform {
   transform: perspective(1200px) rotateY(-15deg);
+}
+.decide-slider-wrapper .slick-center + .slick-slide + .slick-slide .decide-card-new {
   height: 400px;
-  width: 315px;
-  padding: 0;
+  width: 325px;
 }
 
 @media (max-width: 768px) {
