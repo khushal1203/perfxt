@@ -24,42 +24,38 @@ const PAD_L = 10;
 const PAD_R = 12;
 const CHAR_W = 7.5;
 
+// each entry: tags sit exactly on that line's gy
+// left side: orange tags (before), right side: blue tags (after)
+// 2 tags per side on some lines, 1 tag per side on others — no overlaps
 const TAG_LINES = [
-  {
-    lineIdx: 0,
-    ox1: 50,  ot1: "Confused data from your wearable",
-    ox2: 420, ot2: "Burnout creeping in unnoticed",
-    bx1: 1200, bt1: "Daily tasks tied to real outcomes",
-    bx2: 1650, bt2: "Clear dashboard on how your body feels",
-  },
-  {
-    lineIdx: 2,
-    ox1: 200, ot1: "You push through fatigue",
-    ox2: 580, ot2: "Great sleep score but no idea how to use it",
-    bx1: 1100, bt1: "Schedule deep work, calls, or rest based on your recovery",
-    bx2: 1580, bt2: "Spot hidden strain before burnout builds up",
-  },
-  {
-    lineIdx: 3,
-    ox1: 80,  ot1: "Overworked, yet underproductive",
-    ox2: 500, ot2: "Deep work at the wrong time",
-    bx1: 1300, bt1: "10–15 hours/month freed up for strategy or rest",
-    bx2: 1640, bt2: "Daily tasks tied to real outcomes",
-  },
-  {
-    lineIdx: 5,
-    ox1: 150, ot1: "Sleep data with no clear way to act on it",
-    ox2: 480, ot2: "Confused data from your wearable",
-    bx1: 1150, bt1: "Clear dashboard on how your body feels",
-    bx2: 1600, bt2: "Spot hidden strain before burnout builds up",
-  },
-  {
-    lineIdx: 7,
-    ox1: 60,  ot1: "Burnout creeping in unnoticed",
-    ox2: 550, ot2: "You push through fatigue",
-    bx1: 1250, bt1: "Schedule deep work, calls, or rest based on your recovery",
-    bx2: 1660, bt2: "10–15 hours/month freed up for strategy or rest",
-  },
+  // line 0 — 2 orange left, 2 blue right
+  { lineIdx: 0, tags: [
+    { x: 30,   side: "o", text: "Confused data from your wearable" },
+    
+    { x: 1580, side: "b", text: "Clear dashboard on how your body feels" },
+  ]},
+  // line 2 — 1 orange at x:380 (same as Deep work on line 3), 1 blue right
+  { lineIdx: 2, tags: [
+    { x: 380,  side: "o", text: "Burnout creeping in unnoticed" },
+    { x: 1500, side: "b", text: "Schedule deep work, calls, or rest based on your recovery" },
+  ]},
+  // line 3 — 2 orange left, 2 blue right
+  { lineIdx: 3, tags: [
+    { x: 30,   side: "o", text: "Overworked, yet underproductive" },
+    { x: 380,  side: "o", text: "Deep work at the wrong time" },
+    { x: 1200, side: "b", text: "10–15 hours/month freed up" },
+    { x: 1580, side: "b", text: "Daily tasks tied to real outcomes" },
+  ]},
+  // line 5 — 1 orange left, 1 blue right
+  { lineIdx: 5, tags: [
+    { x: 30,   side: "o", text: "Sleep data with no way to act on it" },
+    { x: 1500, side: "b", text: "Spot hidden strain before burnout" },
+  ]},
+  // line 7 — 1 orange left, 1 blue right
+  { lineIdx: 7, tags: [
+    { x: 30,   side: "o", text: "You push through fatigue" },
+    { x: 1500, side: "b", text: "Schedule deep work based on recovery" },
+  ]},
 ];
 
 function Tag({ x, y, text, color, bg, borderColor, isBlue }) {
@@ -67,7 +63,7 @@ function Tag({ x, y, text, color, bg, borderColor, isBlue }) {
   const iconW = ICON_W + 6;
   const tagW = PAD_L + iconW + textW + PAD_R;
   return (
-    <g transform={`translate(${x}, ${y - TAG_H / 2})`}>
+    <g transform={`translate(${x}, ${y - TAG_H})`}>
       <rect width={tagW} height={TAG_H} rx="10" fill={bg} stroke={borderColor} strokeWidth="1" />
       {isBlue ? (
         <g transform={`translate(${PAD_L}, ${(TAG_H - 16) / 2})`}>
@@ -133,14 +129,21 @@ export default function Framer() {
             })
           )}
 
-          {TAG_LINES.map(({ lineIdx, ox1, ot1, ox2, ot2, bx1, bt1, bx2, bt2 }) => {
+          {TAG_LINES.map(({ lineIdx, tags }) => {
             const y = LINES[lineIdx].gy;
             return (
               <g key={lineIdx}>
-                <Tag x={ox1} y={y} text={ot1} color={ORANGE} bg="#FCEFEC" borderColor="#E05C3B4D" />
-                <Tag x={ox2} y={y} text={ot2} color={ORANGE} bg="#FCEFEC" borderColor="#E05C3B4D" />
-                <Tag x={bx1} y={y} text={bt1} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" isBlue />
-                <Tag x={bx2} y={y} text={bt2} color={BLUE}   bg="#ECEFFE" borderColor="#3B50E04D" isBlue />
+                {tags.map(({ x, side, text }, ti) => (
+                  <Tag
+                    key={ti}
+                    x={x} y={y}
+                    text={text}
+                    color={side === "o" ? ORANGE : BLUE}
+                    bg={side === "o" ? "#FCEFEC" : "#ECEFFE"}
+                    borderColor={side === "o" ? "#E05C3B4D" : "#3B50E04D"}
+                    isBlue={side === "b"}
+                  />
+                ))}
               </g>
             );
           })}

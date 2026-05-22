@@ -1,55 +1,142 @@
 "use client";
 
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import { useEffect, useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { EffectCoverflow } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-coverflow";
+import "swiper/css/pagination";
 
 const cards = [
-  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET",      icon: "/images/home/imgeicon1.svg" },
-  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY", icon: "/images/home/imageicon2.svg" },
-  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%",  label: "AM READINESS",     icon: "/images/home/imgeicon3.svg" },
-  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY",       icon: "/images/home/imageiocn4.svg" },
-  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT",       icon: "/images/home/imageicon5.svg" },
-  { title: "Are too many calls draining the rest of your week?", src: "/images/home/img1.jpg", stat: "3/5",  label: "CALL BUDGET",      icon: "/images/home/imgeicon1.svg" },
-  { title: "Stack meetings into one day, or spread them out?",   src: "/images/home/img2.jpg", stat: "Tue",  label: "BEST MEETING DAY", icon: "/images/home/imageicon2.svg" },
-  { title: "Train in the morning, or save energy for work?",     src: "/images/home/img3.jpg", stat: "74%",  label: "AM READINESS",     icon: "/images/home/imgeicon3.svg" },
-  { title: "Protect today for deep work, or use it for admin?",  src: "/images/home/img4.jpg", stat: "Deep", label: "MODE TODAY",       icon: "/images/home/imageiocn4.svg" },
-  { title: "Is your schedule helping recovery or hurting it?",   src: "/images/home/img5.jpg", stat: "-42m", label: "SLEEP DEBT",       icon: "/images/home/imageicon5.svg" },
+  { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img3.jpg", icon: "/images/home/dicon1.svg", title: "Train in the morning, or save energy for work?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img3.jpg", icon: "/images/home/dicon1.svg", title: "Train in the morning, or save energy for work?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "AM Readiness", value: "74%" },
 ];
 
-function getConfig(w) {
-  if (w <= 480)  return { slides: 1, width: 260 };
-  if (w <= 768)  return { slides: 1, width: 300 };
-  if (w <= 1024) return { slides: 3, width: 230 };
-  if (w <= 1280) return { slides: 3, width: 270 };
-  if (w <= 1600) return { slides: 5, width: 310 };
-  return               { slides: 5, width: 335 };
+const css = `
+  .decide-carousel {
+    width: 100%;
+    height: 560px;
+    padding-bottom: 50px !important;
+  }
+  .decide-carousel .swiper-slide {
+    width: 300px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 18px;
+    overflow: hidden;
+    position: relative;
+  }
+  .decide-carousel .swiper-pagination-bullet {
+    background-color: #000 !important;
+  }
+  .decide-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8.46px;
+  }
+  .decide-text-box {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 0 10px;
+  }
+  .decide-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 110%;
+    letter-spacing: -0.02em;
+    text-align: center;
+    color: #FFFFFF;
+    margin: 0;
+  }
+  .decide-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 22.56px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #FFFFFF;
+    opacity: 0.7;
+    margin: 0;
+    display: none;
+  }
+  .swiper-slide-active:hover .decide-subtitle {
+    display: block;
+  }
+  .decide-stats-box {
+    background: #3B50E080;
+    backdrop-filter: blur(47px);
+    border-radius: 18px;
+    padding: 14.1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .decide-icon-wrap {
+    width: 47px;
+    height: 47px;
+    border-radius: 11.28px;
+    border: 0.94px solid rgba(255,255,255,0.3);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .decide-icon-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .decide-stat-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .decide-stat-label {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 500;
+    font-size: 13.16px;
+    line-height: 15.04px;
+    letter-spacing: 0.02em;
+    text-align: right;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    opacity: 0.5;
+    margin: 0;
+  }
+  .decide-stat-value {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 600;
+    font-size: 28.2px;
+    line-height: 110%;
+    letter-spacing: -1.58px;
+    text-align: right;
+    color: #FFFFFF;
+    margin: 0;
+  }
+`;
+
+function updateOpacity(swiper) {
+  const slides = swiper.slides;
+  const active = swiper.activeIndex;
+  slides.forEach((slide, i) => {
+    slide.style.opacity = Math.abs(i - active) <= 2 ? "1" : "0";
+  });
 }
 
 export default function Decide() {
-  const [cfg, setCfg] = useState({ slides: 5, width: 335.3 });
-
-  useEffect(() => {
-    const update = () => setCfg(getConfig(window.innerWidth));
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
-  const settings = {
-    className: "center",
-    centerMode: true,
-    infinite: true,
-    centerPadding: "0px",
-    slidesToShow: cfg.slides,
-    speed: 700,
-    arrows: false,
-    swipeToSlide: true,
-    focusOnSelect: true,
-    initialSlide: 2,
-  };
-
   return (
     <section className="decide-section">
       <div className="decide-top-box">
@@ -63,34 +150,47 @@ export default function Decide() {
         </p>
       </div>
 
-      <div className="decide-slider-wrapper">
-        <style>{`
-          .decide-slider-wrapper .slick-slide {
-            width: 333.3px !important;
-          }
-        `}</style>
-        <Slider {...settings}>
+      <style>{css}</style>
+      <div style={{ width: "100%", overflow: "hidden" }}>
+        <Swiper
+          effect="coverflow"
+          grabCursor={true}
+          centeredSlides={true}
+          slidesPerView="auto"
+          loop={true}
+          coverflowEffect={{
+            rotate: 40,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+          }}
+          modules={[EffectCoverflow]}
+          className="decide-carousel"
+          onSwiper={updateOpacity}
+          onSlideChange={updateOpacity}
+        >
           {cards.map((card, i) => (
-            <div key={i} className="decide-slide-item">
-              <div className="decide-card-transform">
-                <div className="decide-card-new">
-                  <img src={card.src} alt={card.title} className="decide-card-img" />
-                  <div className="decide-card-overlay-new" />
-                  <div className="decide-card-content">
-                    <h2 className="decide-card-title">{card.title}</h2>
-                    <div className="decide-bottom-box">
-                      <div className="decide-icon-box"><img src={card.icon} alt="" /></div>
-                      <div className="decide-info">
-                        <span>{card.label}</span>
-                        <h3>{card.stat}</h3>
-                      </div>
-                    </div>
+            <SwiperSlide key={i}>
+              <img style={{ height: "100%", width: "100%", objectFit: "cover", display: "block" }} src={card.src} alt="" />
+              <div className="decide-overlay">
+                <div className="decide-text-box">
+                  <p className="decide-title">{card.title}</p>
+                  <p className="decide-subtitle">Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it.</p>
+                </div>
+                <div className="decide-stats-box">
+                  <div className="decide-icon-wrap">
+                    <img src={card.icon} alt="" />
+                  </div>
+                  <div className="decide-stat-info">
+                    <p className="decide-stat-label">{card.label}</p>
+                    <p className="decide-stat-value">{card.value}</p>
                   </div>
                 </div>
               </div>
-            </div>
+            </SwiperSlide>
           ))}
-        </Slider>
+        </Swiper>
       </div>
     </section>
   );

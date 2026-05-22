@@ -1,17 +1,32 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useState } from "react";
 
-const mobiles = [
-  { n: 1, cls: "ind-img-1" },
-  { n: 2, cls: "ind-img-2" },
-  { n: 3, cls: "ind-img-3" },
-  { n: 4, cls: "ind-img-4" },
-  { n: 5, cls: "ind-img-5" },
-];
+const POSITION_CLASSES = ["ind-img-1", "ind-img-2", "ind-img-3", "ind-img-4", "ind-img-5"];
 
 export default function Individuals() {
+  const [offset, setOffset] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setOffset(p => (p + 1) % 5);
+      setAnimKey(p => p + 1);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <section className="ind-wrapper">
-      {/* Top box */}
+      <style>{`
+        @keyframes slideLeft {
+          from { transform: translateX(40px); opacity: 0; }
+          to   { transform: translateX(0px);  opacity: 1; }
+        }
+        .ind-img-anim {
+          animation: slideLeft 0.5s cubic-bezier(0.4,0,0.2,1) both;
+        }
+      `}</style>
+
       <div className="ind-top-box">
         <div className="ind-heading-group">
           <p className="ind-label">You Want to Achieve More</p>
@@ -26,19 +41,22 @@ export default function Individuals() {
         </p>
       </div>
 
-      {/* Bottom images row */}
       <div className="ind-images-row">
-        {mobiles.map(({ n, cls }) => (
-          <div key={n} className={`ind-image-item ${cls}`}>
-            <Image
-              src={`/images/mobile/mobile${n}.svg`}
-              alt={`Mobile screen ${n}`}
-              width={370}
-              height={784}
-              style={{ width: "100%", height: "auto" }}
-            />
-          </div>
-        ))}
+        {POSITION_CLASSES.map((cls, i) => {
+          const imgNum = ((i + offset) % 5) + 1;
+          return (
+            <div key={i} className={`ind-image-item ${cls}`}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                key={`${animKey}-${i}`}
+                src={`/images/mobile/mobile${imgNum}.svg`}
+                alt={`Mobile screen ${imgNum}`}
+                className="ind-img-anim"
+                style={{ width: "100%", height: "auto" }}
+              />
+            </div>
+          );
+        })}
       </div>
     </section>
   );
