@@ -1,7 +1,7 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow } from "swiper/modules";
+import { EffectCoverflow, FreeMode } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
@@ -70,12 +70,15 @@ const css = `
     letter-spacing: 0;
     text-align: center;
     color: #FFFFFF;
-    opacity: 0.7;
+    opacity: 0;
     margin: 0;
-    display: none;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, max-height 0.4s ease;
   }
   .swiper-slide-active:hover .decide-subtitle {
-    display: block;
+    opacity: 0.7;
+    max-height: 100px;
   }
   .decide-stats-box {
     background: #3B50E080;
@@ -158,6 +161,7 @@ export default function Decide() {
           centeredSlides={true}
           slidesPerView="auto"
           loop={true}
+          speed={600}
           coverflowEffect={{
             rotate: 40,
             stretch: 0,
@@ -165,7 +169,8 @@ export default function Decide() {
             modifier: 1,
             slideShadows: true,
           }}
-          modules={[EffectCoverflow]}
+          freeMode={true}
+          modules={[EffectCoverflow, FreeMode]}
           className="decide-carousel"
           onSwiper={updateOpacity}
           onSlideChange={updateOpacity}

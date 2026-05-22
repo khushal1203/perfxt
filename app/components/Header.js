@@ -35,14 +35,15 @@ export default function Header() {
         WebkitBackdropFilter: "blur(20px)",
         border: "1px solid rgba(255, 255, 255, 0.1)",
         borderRadius: "8px",
+        justifyContent: "center",
       } : {
         border: "1px solid transparent",
         borderRadius: "0px",
       }}>
         {/* Logo */}
-        <div className="header-logo">
+        {!scrolled && <div className="header-logo">
           <Image src="/images/home/logo.svg" alt="Logo" width={198} height={26} priority />
-        </div>
+        </div>}
 
         {/* Desktop Nav */}
         <nav className="header-nav">
@@ -52,12 +53,12 @@ export default function Header() {
         </nav>
 
         {/* Download Button — desktop */}
-        <a href="#" className="download-btn" style={scrolled ? { paddingTop: "8px", paddingBottom: "8px" } : {}}>
+        {!scrolled && <a href="#" className="download-btn" style={scrolled ? { paddingTop: "8px", paddingBottom: "8px" } : {}}>
           <span className="download-icon-wrap">
             <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
           </span>
           <span className="download-text">Download App</span>
-        </a>
+        </a>}
 
         {/* Hamburger — mobile */}
         <button className="header-hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
