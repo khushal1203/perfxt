@@ -45,7 +45,7 @@ export default function FAQ() {
   const [open, setOpen] = useState(0);
 
   return (
-    <section className="faq-wrapper">
+    <section className="faq-wrapper" id="faqs">
       <div className="faq-box">
         {/* Left */}
         <div className="faq-left">

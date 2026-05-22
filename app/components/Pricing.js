@@ -66,7 +66,7 @@ export default function Pricing() {
   const [billing, setBilling] = useState("yearly");
 
   return (
-    <section className="pricing-wrapper">
+    <section className="pricing-wrapper" id="pricing">
       <div className="pricing-box">
         <video
           className="pricing-video-bg"

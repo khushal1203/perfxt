@@ -1,10 +1,8 @@
 import Image from "next/image";
-import Header from "./Header";
 
 export default function Hero() {
   return (
     <section className="hero-section">
-      <Header />
       {/* Background SVG */}
       <Image
         src="/images/home/hero.svg"

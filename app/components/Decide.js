@@ -138,7 +138,7 @@ function updateOpacity(swiper) {
 
 export default function Decide() {
   return (
-    <section className="decide-section">
+    <section className="decide-section" id="sweep">
       <div className="decide-top-box">
         <div className="decide-heading-box">
           <p className="decide-label">What to expect</p>

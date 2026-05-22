@@ -29,7 +29,7 @@ const stats = [
 export default function WhatYouGet() {
   const [activeTab, setActiveTab] = useState(0);
   return (
-    <section className="wyg-wrapper">
+    <section className="wyg-wrapper" id="benefits">
       {/* Top heading box */}
       <div className="wyg-top-box">
         <div className="wyg-heading-group">

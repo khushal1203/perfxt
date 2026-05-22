@@ -5,28 +5,16 @@ const POSITION_CLASSES = ["ind-img-1", "ind-img-2", "ind-img-3", "ind-img-4", "i
 
 export default function Individuals() {
   const [offset, setOffset] = useState(0);
-  const [animKey, setAnimKey] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setOffset(p => (p + 1) % 5);
-      setAnimKey(p => p + 1);
     }, 2000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section className="ind-wrapper">
-      <style>{`
-        @keyframes slideLeft {
-          from { transform: translateX(40px); opacity: 0; }
-          to   { transform: translateX(0px);  opacity: 1; }
-        }
-        .ind-img-anim {
-          animation: slideLeft 0.5s cubic-bezier(0.4,0,0.2,1) both;
-        }
-      `}</style>
-
+    <section className="ind-wrapper" id="integrate">
       <div className="ind-top-box">
         <div className="ind-heading-group">
           <p className="ind-label">You Want to Achieve More</p>
@@ -48,11 +36,9 @@ export default function Individuals() {
             <div key={i} className={`ind-image-item ${cls}`}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                key={`${animKey}-${i}`}
                 src={`/images/mobile/mobile${imgNum}.svg`}
                 alt={`Mobile screen ${imgNum}`}
-                className="ind-img-anim"
-                style={{ width: "100%", height: "auto" }}
+                style={{ width: "100%", height: "auto", transition: "opacity 0.5s ease" }}
               />
             </div>
           );

@@ -1,3 +1,4 @@
+import Header from "./components/Header";
 import Hero from "./components/Hero";
 import Brands from "./components/Brands";
 import Decide from "./components/Decide";
@@ -21,6 +22,7 @@ import AnimateOnScroll from "./components/AnimateOnScroll";
 export default function Home() {
   return (
     <main>
+      <Header />
       <Hero />
       <AnimateOnScroll><Brands /></AnimateOnScroll>
       <AnimateOnScroll><Decide /></AnimateOnScroll>
