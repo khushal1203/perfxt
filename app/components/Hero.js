@@ -34,7 +34,7 @@ export default function Hero() {
           alt="Hero dashboard"
           width={1367}
           height={936}
-          style={{ width: "100%", height: "auto", display: "block" }}
+          style={{ width: "100%", height: "auto", display: "block", maxWidth: "100%" }}
           priority
         />
       </div>

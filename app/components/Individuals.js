@@ -1,17 +1,28 @@
 "use client";
-import { useEffect, useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
-const POSITION_CLASSES = ["ind-img-1", "ind-img-2", "ind-img-3", "ind-img-4", "ind-img-5"];
+const slides = [1, 2, 3, 4, 5];
 
 export default function Individuals() {
-  const [offset, setOffset] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setOffset(p => (p + 1) % 5);
-    }, 2000);
-    return () => clearInterval(interval);
-  }, []);
+  const settings = {
+    infinite: true,
+    centerMode: true,
+    centerPadding: "100px",
+    slidesToShow: 3,
+    speed: 800,
+    autoplay: true,
+    autoplaySpeed: 2500,
+    arrows: false,
+    dots: false,
+    pauseOnHover: false,
+    cssEase: "ease-in-out",
+    responsive: [
+      { breakpoint: 1200, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: "50px" } },
+    ],
+  };
 
   return (
     <section className="ind-wrapper" id="integrate">
@@ -29,20 +40,17 @@ export default function Individuals() {
         </p>
       </div>
 
-      <div className="ind-images-row">
-        {POSITION_CLASSES.map((cls, i) => {
-          const imgNum = ((i + offset) % 5) + 1;
-          return (
-            <div key={i} className={`ind-image-item ${cls}`}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`/images/mobile/mobile${imgNum}.svg`}
-                alt={`Mobile screen ${imgNum}`}
-                style={{ width: "100%", height: "auto", transition: "opacity 0.5s ease" }}
-              />
+      <div className="ind-slider-wrapper">
+        <Slider {...settings}>
+          {slides.map((num) => (
+            <div key={num} className="ind-slide-item">
+              <div className="ind-phone-frame">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`/images/mobile/mobile${num}.svg`} alt={`Mobile screen ${num}`} />
+              </div>
             </div>
-          );
-        })}
+          ))}
+        </Slider>
       </div>
     </section>
   );
