@@ -2772,7 +2772,8 @@ main > .framer-section {
 /* ── Individuals Slider ── */
 .ind-slider-wrapper {
   width: 100%;
-  margin-top: 80px;
+  margin-top: 60px;
+  padding-bottom: 60px;
 }
 
 .ind-slide-item {
@@ -2802,7 +2803,30 @@ main > .framer-section {
 
 .ind-phone-frame img {
   width: 100%;
+  height: auto;
+  max-height: 800px;
+  object-fit: contain;
   display: block;
+}
+
+@media (max-width: 1280px) {
+  .ind-phone-frame img { max-height: 420px; }
+}
+
+@media (max-width: 1024px) {
+  .ind-phone-frame img { max-height: 360px; }
+}
+
+@media (max-width: 768px) {
+  .ind-phone-frame img { max-height: 300px; }
+}
+
+@media (max-width: 480px) {
+  .ind-phone-frame img { max-height: 240px; }
+}
+
+@media (max-width: 360px) {
+  .ind-phone-frame img { max-height: 200px; }
 }
 
 .ind-slider-wrapper .slick-list {
