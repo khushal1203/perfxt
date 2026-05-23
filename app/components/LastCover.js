@@ -13,6 +13,8 @@ export default function LastCover() {
           sizes="100vw"
         />
 
+        <div className="lastcover-overlay" />
+
         {/* Left content */}
         <div className="lastcover-left">
           <div className="lastcover-top">

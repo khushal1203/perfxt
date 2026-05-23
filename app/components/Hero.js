@@ -16,6 +16,9 @@ export default function Hero() {
         <source src="/images/home/hero.mp4" type="video/mp4" />
       </video>
 
+      {/* Video Overlay */}
+      <div style={{ position: "absolute", inset: 0, background: "linear-gradient(228.68deg, rgba(229, 233, 255, 0.8) 19.15%, rgba(255, 255, 255, 0.56) 49.44%)", opacity: 0.7, zIndex: 1 }} />
+
       {/* Top content box */}
       <div className="hero-top-box">
         {/* Label */}

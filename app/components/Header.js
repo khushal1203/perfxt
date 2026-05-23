@@ -28,8 +28,8 @@ export default function Header() {
   return (
     <header className="header-wrapper">
       <div className="header-inner" style={scrolled ? {
-        maxWidth: "calc(100% - 60px)",
-        padding: "12px 125px",
+        maxWidth: "fit-content",
+        padding: "12px 32px",
         background: "rgba(255, 255, 255, 0.1)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",

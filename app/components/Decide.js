@@ -1,145 +1,96 @@
 "use client";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, FreeMode } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/effect-coverflow";
-import "swiper/css/pagination";
+import { useEffect, useRef } from "react";
 
 const cards = [
-  { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "Call budget", value: "3/5" },
+  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "ABest meeting day", value: "Tue" },
   { src: "/images/home/img3.jpg", icon: "/images/home/dicon1.svg", title: "Train in the morning, or save energy for work?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img3.jpg", icon: "/images/home/dicon1.svg", title: "Train in the morning, or save energy for work?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "AM Readiness", value: "74%" },
-  { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "AM Readiness", value: "74%" },
+  { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "Mode today", value: "Deep" },
+  { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "Sleep debt", value: "-42m" },
 ];
 
-const css = `
-  .decide-carousel {
-    width: 100%;
-    height: 560px;
-    padding-bottom: 50px !important;
-  }
-  .decide-carousel .swiper-slide {
-    width: 300px;
-    opacity: 0;
-    transition: opacity 0.3s;
-    border-radius: 18px;
-    overflow: hidden;
-    position: relative;
-  }
-  .decide-carousel .swiper-pagination-bullet {
-    background-color: #000 !important;
-  }
-  .decide-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0 14px 14px;
-    display: flex;
-    flex-direction: column;
-    gap: 8.46px;
-  }
-  .decide-text-box {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 0 10px;
-  }
-  .decide-title {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 110%;
-    letter-spacing: -0.02em;
-    text-align: center;
-    color: #FFFFFF;
-    margin: 0;
-  }
-  .decide-subtitle {
-    font-family: 'Inter', sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 22.56px;
-    letter-spacing: 0;
-    text-align: center;
-    color: #FFFFFF;
-    opacity: 0;
-    margin: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: opacity 0.4s ease, max-height 0.4s ease;
-  }
-  .swiper-slide-active:hover .decide-subtitle {
-    opacity: 0.7;
-    max-height: 100px;
-  }
-  .decide-stats-box {
-    background: #3B50E080;
-    backdrop-filter: blur(47px);
-    border-radius: 18px;
-    padding: 14.1px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .decide-icon-wrap {
-    width: 47px;
-    height: 47px;
-    border-radius: 11.28px;
-    border: 0.94px solid rgba(255,255,255,0.3);
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .decide-icon-wrap img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .decide-stat-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-  }
-  .decide-stat-label {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 500;
-    font-size: 13.16px;
-    line-height: 15.04px;
-    letter-spacing: 0.02em;
-    text-align: right;
-    text-transform: uppercase;
-    color: #FFFFFF;
-    opacity: 0.5;
-    margin: 0;
-  }
-  .decide-stat-value {
-    font-family: 'Outfit', sans-serif;
-    font-weight: 600;
-    font-size: 28.2px;
-    line-height: 110%;
-    letter-spacing: -1.58px;
-    text-align: right;
-    color: #FFFFFF;
-    margin: 0;
-  }
-`;
-
-function updateOpacity(swiper) {
-  const slides = swiper.slides;
-  const active = swiper.activeIndex;
-  slides.forEach((slide, i) => {
-    slide.style.opacity = Math.abs(i - active) <= 2 ? "1" : "0";
-  });
-}
+const looped = [...cards, ...cards, ...cards];
+const SPEED = 1.2;
+const BASE_W = 320;
+const MAX_W = 440;
+const BASE_H = 500;
+const MAX_H = 620;
+const MAX_ROTATE = 15;
 
 export default function Decide() {
+  const outerRef = useRef(null);
+  const trackRef = useRef(null);
+  const xRef = useRef(0);
+  const pausedRef = useRef(false);
+  const rafRef = useRef(null);
+  const halfWRef = useRef(0);
+
+  useEffect(() => {
+    const outer = outerRef.current;
+    const track = trackRef.current;
+    if (!outer || !track) return;
+
+    // Set base size on all cards first
+    const items = track.querySelectorAll(".decide-card-item");
+    items.forEach((el) => {
+      el.style.width = `${BASE_W}px`;
+      el.style.flex = `0 0 ${BASE_W}px`;
+      el.style.height = `${BASE_H}px`;
+    });
+
+    // Measure half width after base sizes set
+    halfWRef.current = track.scrollWidth / 3;
+
+    const applyEffects = () => {
+      const outerRect = outer.getBoundingClientRect();
+      const cx = outerRect.left + outerRect.width / 2;
+
+      items.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const elCx = r.left + r.width / 2;
+        const dist = cx - elCx;
+        const absDist = Math.abs(dist);
+        const ratio = Math.max(0, 1 - absDist / (BASE_W * 2.2));
+
+        const w = Math.round(BASE_W + (MAX_W - BASE_W) * ratio);
+        const h = Math.round(BASE_H + (MAX_H - BASE_H) * ratio);
+        const rotateY = (1 - ratio) * MAX_ROTATE * (dist > 0 ? 1 : -1);
+
+        el.style.width = `${w}px`;
+        el.style.flex = `0 0 ${w}px`;
+        el.style.height = `${h}px`;
+        el.style.transform = `perspective(900px) rotateY(${rotateY.toFixed(2)}deg)`;
+        el.style.zIndex = Math.round(ratio * 10);
+      });
+    };
+
+    const tick = () => {
+      if (!pausedRef.current) {
+        xRef.current -= SPEED;
+        if (Math.abs(xRef.current) >= halfWRef.current) {
+          xRef.current += halfWRef.current;
+        }
+        track.style.transform = `translateX(${xRef.current}px)`;
+      }
+      applyEffects();
+      rafRef.current = requestAnimationFrame(tick);
+    };
+
+    rafRef.current = requestAnimationFrame(tick);
+
+    const pause = () => { pausedRef.current = true; };
+    const resume = () => { pausedRef.current = false; };
+    outer.addEventListener("mouseenter", pause);
+    outer.addEventListener("mouseleave", resume);
+
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      outer.removeEventListener("mouseenter", pause);
+      outer.removeEventListener("mouseleave", resume);
+    };
+  }, []);
+
   return (
     <section className="decide-section" id="sweep">
       <div className="decide-top-box">
@@ -153,49 +104,27 @@ export default function Decide() {
         </p>
       </div>
 
-      <style>{css}</style>
-      <div style={{ width: "100%", overflow: "hidden" }}>
-        <Swiper
-          effect="coverflow"
-          grabCursor={true}
-          centeredSlides={true}
-          slidesPerView="auto"
-          loop={true}
-          speed={600}
-          coverflowEffect={{
-            rotate: 40,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-          }}
-          freeMode={true}
-          modules={[EffectCoverflow, FreeMode]}
-          className="decide-carousel"
-          onSwiper={updateOpacity}
-          onSlideChange={updateOpacity}
-        >
-          {cards.map((card, i) => (
-            <SwiperSlide key={i}>
-              <img style={{ height: "100%", width: "100%", objectFit: "cover", display: "block" }} src={card.src} alt="" />
-              <div className="decide-overlay">
-                <div className="decide-text-box">
-                  <p className="decide-title">{card.title}</p>
-                  <p className="decide-subtitle">Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it.</p>
-                </div>
-                <div className="decide-stats-box">
-                  <div className="decide-icon-wrap">
+      <div className="decide-track-outer" ref={outerRef}>
+        <div className="decide-track" ref={trackRef}>
+          {looped.map((card, i) => (
+            <div className="decide-card-item" key={i}>
+              <img src={card.src} alt="" draggable={false} className="decide-card-bg" />
+              <div className="decide-card-gradient" />
+              <div className="decide-card-content">
+                <p className="decide-card-title">{card.title}</p>
+                <div className="decide-card-stats">
+                  <div className="decide-card-icon-wrap">
                     <img src={card.icon} alt="" />
                   </div>
-                  <div className="decide-stat-info">
-                    <p className="decide-stat-label">{card.label}</p>
-                    <p className="decide-stat-value">{card.value}</p>
+                  <div className="decide-card-stat-info">
+                    <span className="decide-card-stat-label">{card.label}</span>
+                    <span className="decide-card-stat-value">{card.value}</span>
                   </div>
                 </div>
               </div>
-            </SwiperSlide>
+            </div>
           ))}
-        </Swiper>
+        </div>
       </div>
     </section>
   );

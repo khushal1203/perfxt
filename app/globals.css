@@ -19,8 +19,8 @@ html, body {
 }
 
 main > * {
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 main > .framer-section {
@@ -651,59 +651,122 @@ main > .framer-section {
   width: 100%;
 }
 
-.decide-cards {
+/* ── Decide Track ── */
+.decide-track-outer {
   width: 100%;
+  overflow: visible;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.decide-track {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 12px;
-  padding: 0 20px 80px;
-  overflow: hidden;
+  gap: 0;
+  padding: 50px 0;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
 }
 
-.decide-card {
-  flex-shrink: 0;
+.decide-card-item {
+  flex: 0 0 calc(18vw);
+  width: calc(18vw);
+  height: 500px;
   border-radius: 20px;
   overflow: hidden;
-  transform-origin: bottom center;
   position: relative;
+  transform-origin: center center;
+  margin: 0 10px;
+  will-change: transform;
 }
 
-.decide-card img {
-  display: block;
-}
-
-.decide-card-overlay {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  pointer-events: none;
-}
-
-
-/* ── Decide Swiper ── */
-.decide-swiper-wrapper {
-  width: 100%;
-  padding: 10px 0 50px;
-}
-
-.decide-swiper {
-  width: 100%;
-  height: 560px;
-  padding-bottom: 10px !important;
-}
-
-.decide-swiper-slide {
-  width: 335px !important;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.decide-card-img {
+.decide-card-bg {
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  pointer-events: none;
+}
+
+.decide-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.08) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.decide-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 14px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.decide-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 120%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}
+
+.decide-card-stats {
+  background: rgba(59,80,224,0.5);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 14px;
+  padding: 12px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.decide-card-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.3);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.decide-card-icon-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.decide-card-stat-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.decide-card-stat-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  opacity: 0.55;
+}
+
+.decide-card-stat-value {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  letter-spacing: -1.5px;
+  color: #fff;
+  line-height: 1;
 }
 
 /* ── Decide Responsive ── */
@@ -711,15 +774,13 @@ main > .framer-section {
   .decide-section { gap: 48px; }
   .decide-top-box { width: 88%; }
   .decide-subtext { font-size: 15px; }
-  .decide-swiper { height: 480px; }
-  .decide-swiper-slide { width: 270px !important; }
+  .decide-card-item { height: 420px; }
 }
 
 @media (max-width: 1024px) {
   .decide-section { gap: 40px; }
   .decide-top-box { width: 90%; }
-  .decide-swiper { height: 420px; }
-  .decide-swiper-slide { width: 230px !important; }
+  .decide-card-item { height: 380px; min-width: 200px; }
 }
 
 @media (max-width: 768px) {
@@ -727,8 +788,7 @@ main > .framer-section {
   .decide-top-box { width: 92%; gap: 14px; }
   .decide-label { font-size: 12px; }
   .decide-subtext { font-size: 14px; }
-  .decide-swiper { height: 440px; }
-  .decide-swiper-slide { width: 300px !important; }
+  .decide-card-item { height: 360px; min-width: 200px; }
 }
 
 @media (max-width: 480px) {
@@ -737,13 +797,12 @@ main > .framer-section {
   .decide-label { font-size: 10px; }
   .decide-heading { font-size: clamp(22px, 6vw, 36px); }
   .decide-subtext { font-size: 13px; }
-  .decide-swiper { height: 380px; }
-  .decide-swiper-slide { width: 260px !important; }
+  .decide-card-item { height: 320px; min-width: 180px; }
+  .decide-card-title { font-size: 14px; }
 }
 
 @media (max-width: 360px) {
-  .decide-swiper { height: 340px; }
-  .decide-swiper-slide { width: 230px !important; }
+  .decide-card-item { height: 280px; min-width: 160px; }
 
   .cta-box {
     padding: 20px 16px;
@@ -1113,7 +1172,8 @@ main > .framer-section {
 .video-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(21, 21, 21, 0.45);
+  background: #15151566;
+  opacity: 0.4;
   z-index: 1;
 }
 
@@ -2942,7 +3002,8 @@ main > .framer-section {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(21, 21, 21, 0.3);
+  background: #15151566;
+  opacity: 0.4;
   z-index: -1;
 }
 
@@ -3694,6 +3755,14 @@ main > .framer-section {
   isolation: isolate;
 }
 
+.lastcover-overlay {
+  position: absolute;
+  inset: 0;
+  background: #15151566;
+  opacity: 0.4;
+  z-index: 1;
+}
+
 .lastcover-bg {
   object-fit: cover;
   object-position: center;
@@ -3702,7 +3771,7 @@ main > .framer-section {
 
 .lastcover-left {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   margin-left: 135px;
   width: 580px;
   display: flex;
@@ -3713,7 +3782,7 @@ main > .framer-section {
 
 .lastcover-right {
   position: absolute;
-  z-index: 1;
+  z-index: 2;
   right: -60px;
   bottom: -30px;
   width: 866px;
