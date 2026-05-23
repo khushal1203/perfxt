@@ -4,35 +4,35 @@ import { useState, useEffect } from "react";
 const reviews = [
   {
     quote: "Now I know that if I train in the morning I do 50% less tasks during the day. Perfxt made me realise I should train in the evening.",
-    avatar: "/images/home/rev1.svg",
+    avatar: "/images/home/rev1.png",
     name: "Samantha L.",
     role: "Startup Founder",
     stars: 3,
   },
   {
     quote: "Perfxt completely changed how I structure my week. I used to guess — now I know exactly when I perform best.",
-    avatar: "/images/home/rev2.svg",
+    avatar: "/images/home/rev2.png",
     name: "James K.",
     role: "Creator",
     stars: 3,
   },
   {
     quote: "As a consultant juggling multiple clients, Perfxt helps me protect my deep work hours and stay consistent.",
-    avatar: "/images/home/rev3.svg",
+    avatar: "/images/home/rev3.png",
     name: "Priya M.",
     role: "Consultant",
     stars: 3,
   },
   {
     quote: "I never realized how much my sleep was affecting my output. Perfxt connected the dots for me.",
-    avatar: "/images/home/rev4.svg",
+    avatar: "/images/home/rev4.png",
     name: "Alex R.",
     role: "Athlete",
     stars: 3,
   },
   {
     quote: "Finally a tool that tells me when to work, not just what to do. Game changer for my productivity.",
-    avatar: "/images/home/rev5.svg",
+    avatar: "/images/home/rev5.png",
     name: "Nina T.",
     role: "Designer",
     stars: 3,
@@ -40,12 +40,12 @@ const reviews = [
 ];
 
 const images = [
-  { src: "/images/home/rev1.svg", top: 140, left: 0 },
-  { src: "/images/home/rev2.svg", top: 60,  left: 240 },
-  { src: "/images/home/rev3.svg", top: 0,   left: 480 },
-  { src: "/images/home/rev4.svg", top: 0,   left: 720 },
-  { src: "/images/home/rev5.svg", top: 60,  left: 960 },
-  { src: "/images/home/rev6.svg", top: 140, left: 1200 },
+  { src: "/images/home/rev1.png", top: 140, left: 0 },
+  { src: "/images/home/rev2.png", top: 60,  left: 240 },
+  { src: "/images/home/rev3.png", top: 0,   left: 480 },
+  { src: "/images/home/rev4.png", top: 0,   left: 720 },
+  { src: "/images/home/rev5.png", top: 60,  left: 960 },
+  { src: "/images/home/rev6.png", top: 140, left: 1200 },
 ];
 
 export default function Reviews() {

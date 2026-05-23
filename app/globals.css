@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600&family=Inter:wght@400;500&display=swap&font-display=swap");
 @import "tailwindcss";
 
 * {
@@ -16,7 +16,6 @@ html, body {
   overflow-x: hidden;
   font-family: "Outfit", sans-serif;
   background: #ffffff;
-  scroll-behavior: smooth;
 }
 
 main > * {
@@ -2232,7 +2231,7 @@ main > .framer-section {
   width: 100%;
   border-radius: 60px;
   overflow: hidden;
-  background: #eceefc;
+  background: #eceefc url('/images/home/what1.png') center top/cover no-repeat;
   margin-top: 40px;
   display: flex;
   flex-direction: row;
@@ -2512,7 +2511,7 @@ main > .framer-section {
   width: 100%;
   border-radius: 60px;
   overflow: hidden;
-  background: #eceefc url('/images/home/what3.svg') center/cover no-repeat;
+  background: #eceefc url('/images/home/what3.png') center/cover no-repeat;
   margin-top: 40px;
   display: flex;
   flex-direction: row;

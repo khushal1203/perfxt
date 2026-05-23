@@ -46,7 +46,7 @@ export default function Individuals() {
             <div key={num} className="ind-slide-item">
               <div className="ind-phone-frame">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/mobile/mobile${num}.svg`} alt={`Mobile screen ${num}`} />
+                <img src={`/images/mobile/mobile${num}.png`} alt={`Mobile screen ${num}`} />
               </div>
             </div>
           ))}

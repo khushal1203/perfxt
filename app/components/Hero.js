@@ -3,14 +3,18 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section className="hero-section">
-      {/* Background SVG */}
-      <Image
-        src="/images/home/hero.svg"
-        alt="Hero background"
-        fill
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
         className="hero-bg"
-        priority
-      />
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+      >
+        <source src="/images/home/hero.mp4" type="video/mp4" />
+      </video>
 
       {/* Top content box */}
       <div className="hero-top-box">
