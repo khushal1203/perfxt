@@ -92,7 +92,7 @@ export default function Process() {
 
         {/* Right image */}
         <div className="process-right-img">
-          <Image src="/images/home/pcover.svg" alt="process cover" width={1215} height={1026} style={{ width: "100%", height: "auto" }} />
+          <Image src="/images/home/pcover.png" alt="process cover" width={1215} height={1026} style={{ width: "100%", height: "auto" }} />
         </div>
       </div>
     </section>

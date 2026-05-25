@@ -26,10 +26,7 @@ export default function CTA() {
             <Image src="/images/home/icon2.svg" alt="Start" width={24} height={24} />
             <span>Start Free Trial</span>
           </a>
-          <a href="#" className="cta-btn cta-btn--outline">
-            <Image src="/images/home/icon3.svg" alt="Talk" width={24} height={24} />
-            <span>Talk to Our Team</span>
-          </a>
+         
         </div>
       </div>
     </section>

@@ -1,6 +1,5 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const navItems = [
@@ -25,40 +24,35 @@ export default function Header() {
     return () => window.removeEventListener("scroll", onScroll, true);
   }, []);
 
+  function scrollTo(id) {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
   return (
-    <header className="header-wrapper">
-      <div className="header-inner" style={scrolled ? {
-        maxWidth: "fit-content",
-        padding: "12px 32px",
-        background: "rgba(255, 255, 255, 0.1)",
-        backdropFilter: "blur(20px)",
-        WebkitBackdropFilter: "blur(20px)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-        borderRadius: "8px",
-        justifyContent: "center",
-      } : {
-        border: "1px solid transparent",
-        borderRadius: "0px",
-      }}>
+    <header className={`header-wrapper${scrolled ? " header-wrapper--scrolled" : ""}`}>
+      <div className={`header-inner${scrolled ? " header-inner--scrolled" : ""}`}>
         {/* Logo */}
-        {!scrolled && <div className="header-logo">
+        <div className={`header-logo${scrolled ? " header-logo--hidden" : ""}`}>
           <Image src="/images/home/logo.svg" alt="Logo" width={198} height={26} priority />
-        </div>}
+        </div>
 
         {/* Desktop Nav */}
         <nav className="header-nav">
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="nav-item">{item.label}</Link>
+            <button key={item.label} className="nav-item" onClick={() => scrollTo(item.href.slice(1))}>{item.label}</button>
           ))}
         </nav>
 
         {/* Download Button — desktop */}
-        {!scrolled && <a href="#" className="download-btn" style={scrolled ? { paddingTop: "8px", paddingBottom: "8px" } : {}}>
-          <span className="download-icon-wrap">
-            <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
-          </span>
-          <span className="download-text">Download App</span>
-        </a>}
+        <div className={`header-cta${scrolled ? " header-cta--hidden" : ""}`}>
+          <a href="#" className="download-btn">
+            <span className="download-icon-wrap">
+              <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
+            </span>
+            <span className="download-text">Download App</span>
+          </a>
+        </div>
 
         {/* Hamburger — mobile */}
         <button className="header-hamburger" onClick={() => setOpen(!open)} aria-label="Toggle menu">
@@ -72,7 +66,7 @@ export default function Header() {
       {open && (
         <div className="header-mobile-menu">
           {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="mobile-nav-item" onClick={() => setOpen(false)}>{item.label}</Link>
+            <button key={item.label} className="mobile-nav-item" onClick={() => { scrollTo(item.href.slice(1)); setOpen(false); }}>{item.label}</button>
           ))}
           <a href="#" className="download-btn mobile-download-btn">
             <span className="download-icon-wrap">

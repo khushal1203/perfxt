@@ -28,72 +28,75 @@ const CHAR_W = 7.5;
 // left side: orange tags (before), right side: blue tags (after)
 // 2 tags per side on some lines, 1 tag per side on others — no overlaps
 const TAG_LINES = [
-  // line 0 — 2 orange left, 2 blue right
   { lineIdx: 0, tags: [
     { x: 30,   side: "o", text: "Confused data from your wearable" },
-    
-    { x: 1580, side: "b", text: "Clear dashboard on how your body feels" },
-  ]},
-  // line 2 — 1 orange at x:380 (same as Deep work on line 3), 1 blue right
-  { lineIdx: 2, tags: [
-    { x: 380,  side: "o", text: "Burnout creeping in unnoticed" },
-    { x: 1500, side: "b", text: "Schedule deep work, calls, or rest based on your recovery" },
-  ]},
-  // line 3 — 2 orange left, 2 blue right
-  { lineIdx: 3, tags: [
-    { x: 30,   side: "o", text: "Overworked, yet underproductive" },
-    { x: 380,  side: "o", text: "Deep work at the wrong time" },
-    { x: 1200, side: "b", text: "10–15 hours/month freed up" },
     { x: 1580, side: "b", text: "Daily tasks tied to real outcomes" },
   ]},
-  // line 5 — 1 orange left, 1 blue right
-  { lineIdx: 5, tags: [
-    { x: 30,   side: "o", text: "Sleep data with no way to act on it" },
-    { x: 1500, side: "b", text: "Spot hidden strain before burnout" },
+  { lineIdx: 2, tags: [
+    { x: 380,  side: "o", text: "Burnout creeping in unnoticed" },
+    { x: 1500, side: "b", text: "Clear dashboard on how your body feels" },
   ]},
-  // line 7 — 1 orange left, 1 blue right
-  { lineIdx: 7, tags: [
+  { lineIdx: 3, tags: [
     { x: 30,   side: "o", text: "You push through fatigue" },
-    { x: 1500, side: "b", text: "Schedule deep work based on recovery" },
+    { x: 380,  side: "o", text: "Great sleep score but no idea how to use it" },
+    { x: 1200, side: "b", lines: ["Schedule deep work, calls,", "or rest based on your recovery"] },
+    { x: 1580, side: "b", lines: ["Spot hidden strain", "before burnout builds up"] },
+  ]},
+  { lineIdx: 5, tags: [
+    { x: 30,   side: "o", text: "Overworked, yet underproductive" },
+    { x: 380,  side: "o", text: "Deep work at the wrong time" },
+    { x: 1400, side: "b", text: "10–15 hours/month freed up for strategy or rest" },
+  ]},
+  { lineIdx: 6, tags: [
+    { x: 1500, side: "b", text: "Use your data to make every day easier" },
+  ]},
+  { lineIdx: 7, tags: [
+    { x: 30,   side: "o", text: "Sleep data with no clear way to act on it" },
+    { x: 1500, side: "b", text: "Know exactly when to do calls, admin, or creative work" },
   ]},
 ];
 
-function Tag({ x, y, text, color, bg, borderColor, isBlue }) {
-  const textW = text.length * CHAR_W;
+function Tag({ x, y, text, color, bg, borderColor, isBlue, lines }) {
+  const isMulti = Array.isArray(lines);
+  const maxLen = isMulti ? Math.max(...lines.map(l => l.length)) : text.length;
+  const textW = maxLen * CHAR_W;
   const iconW = ICON_W + 6;
   const tagW = PAD_L + iconW + textW + PAD_R;
+  const tagH = isMulti ? TAG_H + 18 : TAG_H;
   return (
-    <g transform={`translate(${x}, ${y - TAG_H})`}>
-      <rect width={tagW} height={TAG_H} rx="10" fill={bg} stroke={borderColor} strokeWidth="1" />
+    <g transform={`translate(${x}, ${y - tagH})`}>
+      <rect width={tagW} height={tagH} rx="10" fill={bg} stroke={borderColor} strokeWidth="1" />
       {isBlue ? (
-        <g transform={`translate(${PAD_L}, ${(TAG_H - 16) / 2})`}>
+        <g transform={`translate(${PAD_L}, ${(tagH - 16) / 2})`}>
           <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke={color} strokeWidth="1.33333" strokeLinecap="round" strokeLinejoin="round" />
         </g>
       ) : (
         <g>
-          <circle cx={PAD_L + 9} cy={TAG_H / 2} r={8} fill={color} />
-          <line x1={PAD_L + 5.5} y1={TAG_H / 2 - 3.5} x2={PAD_L + 12.5} y2={TAG_H / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
-          <line x1={PAD_L + 12.5} y1={TAG_H / 2 - 3.5} x2={PAD_L + 5.5} y2={TAG_H / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+          <circle cx={PAD_L + 9} cy={tagH / 2} r={8} fill={color} />
+          <line x1={PAD_L + 5.5} y1={tagH / 2 - 3.5} x2={PAD_L + 12.5} y2={tagH / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
+          <line x1={PAD_L + 12.5} y1={tagH / 2 - 3.5} x2={PAD_L + 5.5} y2={tagH / 2 + 3.5} stroke="#fff" strokeWidth="1.5" strokeLinecap="round" />
         </g>
       )}
-      <text
-        x={PAD_L + iconW}
-        y={TAG_H / 2}
-        fontFamily="Inter, sans-serif"
-        fontSize="14"
-        fontWeight="400"
-        fill={color}
-        dominantBaseline="middle"
-      >
-        {text}
-      </text>
+      {isMulti ? (
+        lines.map((line, i) => (
+          <text key={i} x={PAD_L + iconW} y={tagH / 2 + (i - (lines.length - 1) / 2) * 18}
+            fontFamily="Inter, sans-serif" fontSize="14" fontWeight="400" fill={color} dominantBaseline="middle">
+            {line}
+          </text>
+        ))
+      ) : (
+        <text x={PAD_L + iconW} y={tagH / 2}
+          fontFamily="Inter, sans-serif" fontSize="14" fontWeight="400" fill={color} dominantBaseline="middle">
+          {text}
+        </text>
+      )}
     </g>
   );
 }
 
 export default function Framer() {
   return (
-    <section className="framer-section">
+    <section className="framer-section" id="integrate">
       <div className="framer-header">
         <p className="framer-label">Before vs After</p>
         <h2 className="framer-heading">{"Get more done —\nwithout working more."}</h2>
@@ -133,15 +136,16 @@ export default function Framer() {
             const y = LINES[lineIdx].gy;
             return (
               <g key={lineIdx}>
-                {tags.map(({ x, side, text }, ti) => (
+                {tags.map((tag, ti) => (
                   <Tag
                     key={ti}
-                    x={x} y={y}
-                    text={text}
-                    color={side === "o" ? ORANGE : BLUE}
-                    bg={side === "o" ? "#FCEFEC" : "#ECEFFE"}
-                    borderColor={side === "o" ? "#E05C3B4D" : "#3B50E04D"}
-                    isBlue={side === "b"}
+                    x={tag.x} y={y}
+                    text={tag.text}
+                    lines={tag.lines}
+                    color={tag.side === "o" ? ORANGE : BLUE}
+                    bg={tag.side === "o" ? "#FCEFEC" : "#ECEFFE"}
+                    borderColor={tag.side === "o" ? "#E05C3B4D" : "#3B50E04D"}
+                    isBlue={tag.side === "b"}
                   />
                 ))}
               </g>

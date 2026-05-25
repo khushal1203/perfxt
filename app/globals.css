@@ -11,6 +11,10 @@ html {
   scroll-behavior: smooth;
 }
 
+section[id] {
+  scroll-margin-top: 100px;
+}
+
 html, body {
   height: 100%;
   overflow-x: hidden;
@@ -42,12 +46,16 @@ main > .framer-section {
   padding-bottom: 30px;
   border: none;
   outline: none;
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-bottom 0.3s ease, padding 0.3s ease;
+  transition: padding 0.4s ease;
 }
 
-.header-scrolled {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.header-wrapper--scrolled {
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+
+.header-inner--scrolled .nav-item {
+  color: #151515;
 }
 
 .header-inner {
@@ -58,7 +66,20 @@ main > .framer-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, border-radius 0.3s ease;
+  transition: padding 0.4s ease, max-width 0.4s ease;
+}
+
+.header-inner--scrolled {
+  max-width: fit-content;
+  padding: 12px 32px;
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 100px;
+  justify-content: center;
+  box-shadow: 0 2px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.9);
+  transition: background 0.4s ease, backdrop-filter 0.4s ease, border-radius 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
 }
 
 .header-logo {
@@ -67,11 +88,38 @@ main > .framer-section {
   flex-shrink: 0;
   display: flex;
   align-items: center;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.35s ease, transform 0.35s ease, width 0.35s ease;
+  overflow: hidden;
+}
+
+.header-logo--hidden {
+  opacity: 0;
+  transform: translateX(-40px);
+  width: 0;
+  pointer-events: none;
 }
 
 .header-logo img {
   width: 100%;
   height: auto;
+}
+
+.header-cta {
+  width: 175px;
+  flex-shrink: 0;
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 0.35s ease, transform 0.35s ease, width 0.35s ease;
+  overflow: hidden;
+}
+
+.header-cta--hidden {
+  opacity: 0;
+  transform: translateX(40px);
+  width: 0;
+  pointer-events: none;
 }
 
 .header-nav {
@@ -89,6 +137,10 @@ main > .framer-section {
   text-decoration: none;
   white-space: nowrap;
   transition: opacity 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .nav-item:hover {
@@ -181,6 +233,11 @@ main > .framer-section {
   padding: 12px 16px;
   border-radius: 12px;
   transition: background 0.2s;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
 }
 
 .mobile-nav-item:hover {
@@ -1420,16 +1477,19 @@ main > .framer-section {
 .process-heading-img {
   display: inline-flex;
   align-items: center;
-  height: 0.75em;
   overflow: hidden;
-  border-radius: 10%;
+  border-radius: 15px;
+  width: 200px;
+  height: 130px;
+  flex-shrink: 0;
 }
 
 .process-heading-img video,
 .process-heading-video {
-  width: auto;
+  width: 100%;
   height: 100%;
-  border-radius: 17%;
+  object-fit: cover;
+  border-radius: 15px;
   display: block;
 }
 
@@ -1586,8 +1646,9 @@ main > .framer-section {
     font-size: 100px;
   }
 
-  .process-heading-img video {
-    height: 100%;
+  .process-heading-img {
+    width: 133px;
+    height: 87px;
   }
 
   .process-right-img {
@@ -1667,6 +1728,11 @@ main > .framer-section {
 
   .process-heading {
     font-size: 90px;
+  }
+
+  .process-heading-img {
+    width: 120px;
+    height: 78px;
   }
 
   .process-right-img {
@@ -1753,9 +1819,9 @@ main > .framer-section {
     gap: 12px;
   }
 
-  .process-heading-img video {
-    width: auto;
-    height: 100%;
+  .process-heading-img {
+    width: 107px;
+    height: 69px;
   }
 
   .process-bottom {
@@ -1918,9 +1984,9 @@ main > .framer-section {
     gap: 8px;
   }
 
-  .process-heading-img video {
-    width: auto;
-    height: 100%;
+  .process-heading-img {
+    width: 69px;
+    height: 45px;
   }
 
   .process-step-number {
@@ -2064,6 +2130,11 @@ main > .framer-section {
     gap: 6px;
     flex-wrap: wrap;
     justify-content: center;
+  }
+
+  .process-heading-img {
+    width: 53px;
+    height: 35px;
   }
 
   .process-label-row {

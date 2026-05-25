@@ -42,7 +42,7 @@ export default function LastCover() {
         {/* Right image */}
         <div className="lastcover-right">
           <Image
-            src="/images/home/last1.svg"
+            src="/images/home/last1.png"
             alt=""
             width={866}
             height={959}
