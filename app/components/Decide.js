@@ -1,18 +1,62 @@
 "use client";
+import { useState, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const cards = [
   { src: "/images/home/img1.jpg", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "Call budget", value: "3/5", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
-  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "ABest meeting day", value: "Tue", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
+  { src: "/images/home/img2.jpg", icon: "/images/home/dicon2.svg", title: "Stack meetings into one day, or spread them out?", label: "Best meeting day", value: "Tue", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
   { src: "/images/home/img3.jpg", icon: "/images/home/dicon1.svg", title: "Train in the morning, or save energy for work?", label: "AM Readiness", value: "74%", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
   { src: "/images/home/img4.jpg", icon: "/images/home/dicon4.svg", title: "Protect today for deep work, or use it for admin?", label: "Mode today", value: "Deep", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
   { src: "/images/home/img5.jpg", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "Sleep debt", value: "-42m", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
 ];
 
-const CENTER = 2;
+const N = cards.length;
+
+const CARD_STYLES = [
+  { flex: 1.8, height: 460, borderRadius: 14, rotateY: 0, scale: 0.88, zIndex: 2, marginRight: 0 },
+  { flex: 1.7, height: 540, borderRadius: 16, rotateY: 0, scale: 0.94, zIndex: 3, marginRight: 0 },
+  { flex: 2,   height: 620, borderRadius: 20, rotateY: 0, scale: 1,    zIndex: 4, marginRight: 0 },
+  { flex: 1.7, height: 540, borderRadius: 16, rotateY: 0, scale: 0.94, zIndex: 3, marginRight: 0 },
+  { flex: 1.8, height: 460, borderRadius: 14, rotateY: 0, scale: 0.88, zIndex: 2, marginRight: 0 },
+];
 
 export default function Decide() {
+  const [center, setCenter] = useState(2);
+  const dragStart = useRef(null);
+  const sectionRef = useRef(null);
+
+  const scrollToSection = useCallback(() => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, []);
+
+  const prev = () => { setCenter((c) => (c - 1 + N) % N); scrollToSection(); };
+  const next = () => { setCenter((c) => (c + 1) % N); scrollToSection(); };
+
+  const onMouseDown = (e) => { dragStart.current = e.pageX; };
+  const onMouseUp = (e) => {
+    if (dragStart.current === null) return;
+    const delta = e.pageX - dragStart.current;
+    if (delta > 50) prev();
+    else if (delta < -50) next();
+    dragStart.current = null;
+  };
+  const onTouchStart = (e) => { dragStart.current = e.touches[0].pageX; };
+  const onTouchEnd = (e) => {
+    if (dragStart.current === null) return;
+    const delta = e.changedTouches[0].pageX - dragStart.current;
+    if (delta > 50) prev();
+    else if (delta < -50) next();
+    dragStart.current = null;
+  };
+
+  const order = [-2, -1, 0, 1, 2].map((offset, i) => ({
+    card: cards[(center + offset + N) % N],
+    style: CARD_STYLES[i],
+    key: (center + offset + N) % N,
+  }));
+
   return (
-    <section className="decide-section" id="sweep">
+    <section className="decide-section" id="sweep" ref={sectionRef}>
       <div className="decide-top-box">
         <div className="decide-heading-box">
           <p className="decide-label">What to expect</p>
@@ -24,10 +68,41 @@ export default function Decide() {
         </p>
       </div>
 
-      <div className="decide-track-outer">
-        <div className="decide-track">
-          {cards.map((card, i) => (
-            <div className={`decide-card-item${i === CENTER ? " decide-card-center" : ""}`} key={i}>
+      <div
+        className="decide-carousel"
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        style={{ cursor: "grab" }}
+      >
+        <button className="decide-btn decide-btn--prev" onClick={prev}>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="#151515" fillOpacity="0.7" />
+            <path d="M27 16L19 24L27 32" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        <div className="decide-row" style={{ perspective: "1200px", gap: "8px" }}>
+          {order.map(({ card, style, key }, i) => (
+            <motion.div
+              key={key}
+              className={i === 2 ? 'decide-card-item decide-card-center' : 'decide-card-item'}
+              animate={{
+                flex: style.flex,
+                height: style.height,
+                borderRadius: style.borderRadius,
+                rotateY: style.rotateY,
+                scale: style.scale,
+                zIndex: style.zIndex,
+                marginRight: style.marginRight,
+              }}
+              transition={{
+                duration: 0.6,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+              style={{ transformStyle: "preserve-3d" }}
+            >
               <img src={card.src} alt="" draggable={false} className="decide-card-bg" />
               <div className="decide-card-gradient" />
               <div className="decide-card-content">
@@ -45,9 +120,16 @@ export default function Decide() {
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+
+        <button className="decide-btn decide-btn--next" onClick={next}>
+          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="24" fill="#151515" fillOpacity="0.7" />
+            <path d="M21 16L29 24L21 32" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
     </section>
   );

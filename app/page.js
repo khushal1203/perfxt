@@ -27,7 +27,7 @@ export default function Home() {
       <Header />
       <Hero />
       <AnimateOnScroll><Brands /></AnimateOnScroll>
-      <AnimateOnScroll><Decide /></AnimateOnScroll>
+      <Decide />
       <AnimateOnScroll><CTA /></AnimateOnScroll>
       <AnimateOnScroll><VideoSection /></AnimateOnScroll>
       <AnimateOnScroll><Process /></AnimateOnScroll>

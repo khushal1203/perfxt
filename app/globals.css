@@ -711,28 +711,53 @@ main > .framer-section {
 
 /* ── Decide Track ── */
 .decide-track-outer {
-  width: min(1400px, 95%);
+  width: 100%;
+  overflow: hidden;
+  cursor: grab;
+  user-select: none;
 }
 
-.decide-track {
+.decide-carousel {
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
   display: flex;
-  gap: 12px;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+  min-height: 660px;
 }
+
+.decide-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 8px;
+  padding: 0;
+}
+
+.decide-btn {
+  position: absolute;
+  z-index: 10;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.decide-btn--prev { left: 8px; }
+.decide-btn--next { right: 8px; }
 
 .decide-card-item {
-  flex: 1;
-  height: 460px;
-  border-radius: 20px;
+  flex-shrink: 0;
   overflow: hidden;
   position: relative;
 }
 
-.decide-card-center {
-  flex: 1.4;
-  height: 560px;
-}
+
 
 .decide-card-bg {
   width: 100%;
@@ -754,11 +779,10 @@ main > .framer-section {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 0 14px 14px;
+  padding: 0 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-  overflow: hidden;
 }
 
 .decide-card-hover-area {
@@ -770,8 +794,8 @@ main > .framer-section {
 .decide-card-title {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
-  font-size: 17px;
-  line-height: 120%;
+  font-size: 27.2px;
+  line-height: 110%;
   letter-spacing: -0.02em;
   text-align: center;
   color: #fff;
@@ -795,11 +819,11 @@ main > .framer-section {
   transition: opacity 0.35s ease, visibility 0.35s ease, max-height 0.35s ease;
 }
 
-.decide-card-item:hover .decide-card-title {
+.decide-card-center:hover .decide-card-title {
   transform: translateY(0);
 }
 
-.decide-card-item:hover .decide-card-desc {
+.decide-card-center:hover .decide-card-desc {
   opacity: 0.7;
   visibility: visible;
   max-height: 100px;
@@ -862,15 +886,11 @@ main > .framer-section {
   .decide-section { gap: 48px; }
   .decide-top-box { width: 88%; }
   .decide-subtext { font-size: 15px; }
-  .decide-card-item { height: 380px; }
-  .decide-card-center { height: 460px; }
 }
 
 @media (max-width: 1024px) {
   .decide-section { gap: 40px; }
   .decide-top-box { width: 90%; }
-  .decide-card-item { height: 300px; }
-  .decide-card-center { height: 380px; }
 }
 
 @media (max-width: 768px) {
@@ -878,9 +898,6 @@ main > .framer-section {
   .decide-top-box { width: 92%; gap: 14px; }
   .decide-label { font-size: 12px; }
   .decide-subtext { font-size: 14px; }
-  .decide-track { gap: 6px; }
-  .decide-card-item { height: 220px; }
-  .decide-card-center { height: 280px; }
   .decide-card-title { font-size: 11px; }
   .decide-card-stat-value { font-size: 18px; }
 }
@@ -891,15 +908,12 @@ main > .framer-section {
   .decide-label { font-size: 10px; }
   .decide-heading { font-size: clamp(22px, 6vw, 36px); }
   .decide-subtext { font-size: 13px; }
-  .decide-track { gap: 4px; }
-  .decide-card-item { height: 160px; border-radius: 12px; }
-  .decide-card-center { height: 210px; }
+  .decide-card-item { border-radius: 12px; }
   .decide-card-title { font-size: 9px; }
 }
 
 @media (max-width: 360px) {
-  .decide-card-item { height: 130px; }
-  .decide-card-center { height: 170px; }
+  .decide-card-item { }
 
   .cta-box {
     padding: 20px 16px;
