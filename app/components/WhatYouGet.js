@@ -87,17 +87,18 @@ const boxes = [
 export default function WhatYouGet() {
   const [activeTab, setActiveTab] = useState(0);
   const [displayTab, setDisplayTab] = useState(0);
-  const [visible, setVisible] = useState(true);
+  const [animState, setAnimState] = useState("idle"); // idle | out | in
   const box = boxes[displayTab];
 
   function handleTabClick(i) {
-    if (i === activeTab) return;
-    setVisible(false);
+    if (i === activeTab || animState !== "idle") return;
+    setAnimState("out");
     setTimeout(() => {
       setDisplayTab(i);
       setActiveTab(i);
-      setVisible(true);
-    }, 300);
+      setAnimState("in");
+      setTimeout(() => setAnimState("idle"), 400);
+    }, 350);
   }
 
   return (
@@ -123,7 +124,18 @@ export default function WhatYouGet() {
       </div>
 
       {box.type === "card1" ? (
-        <div className="wyg-card" style={{ backgroundImage: `url('${box.bg}')`, backgroundSize: 'cover', backgroundPosition: 'center top', backgroundRepeat: 'no-repeat', opacity: visible ? 1 : 0, transform: visible ? 'translateX(0)' : 'translateX(-40px)', transition: 'opacity 0.3s ease, transform 0.3s ease' }}>
+        <div className="wyg-card" style={{
+          backgroundImage: `url('${box.bg}')`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center top',
+          backgroundRepeat: 'no-repeat',
+          opacity: animState === "out" ? 0 : 1,
+          filter: animState === "out" ? 'blur(6px)' : animState === "in" ? 'blur(0px)' : 'blur(0px)',
+          transform: animState === "out" ? 'translateY(12px) scale(0.98)' : animState === "in" ? 'translateY(0px) scale(1)' : 'translateY(0px) scale(1)',
+          transition: animState === "out"
+            ? 'opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease'
+            : 'opacity 0.4s ease, filter 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1)',
+        }}>
           <div className="wyg-card-left">
             <div className="wyg-card-heading-group">
               <p className="wyg-card-label" style={box.labelColor ? { color: box.labelColor } : {}}>{box.label}</p>

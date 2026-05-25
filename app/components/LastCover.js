@@ -4,16 +4,18 @@ export default function LastCover() {
   return (
     <section className="lastcover-wrapper">
       <div className="lastcover-box">
-        <Image
-          src="/images/home/lastcover.png"
-          alt="Last Cover"
-          fill
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
           className="lastcover-bg"
-          priority
-          sizes="100vw"
-        />
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        >
+          <source src="/images/home/lastcover.mp4" type="video/mp4" />
+        </video>
 
-        <div className="lastcover-overlay" />
+        <div className="lastcover-overlay" style={{ background: 'rgba(21, 21, 21, 0.70)' }} />
 
         {/* Left content */}
         <div className="lastcover-left">
