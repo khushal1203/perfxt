@@ -653,31 +653,27 @@ main > .framer-section {
 
 /* ── Decide Track ── */
 .decide-track-outer {
-  width: 100%;
-  overflow: visible;
-  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  width: min(1400px, 95%);
 }
 
 .decide-track {
   display: flex;
-  gap: 0;
-  padding: 50px 0;
-  width: max-content;
-  align-items: center;
-  will-change: transform;
+  gap: 12px;
+  align-items: flex-end;
+  justify-content: center;
 }
 
 .decide-card-item {
-  flex: 0 0 calc(18vw);
-  width: calc(18vw);
-  height: 500px;
+  flex: 1;
+  height: 460px;
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  transform-origin: center center;
-  margin: 0 10px;
-  will-change: transform;
+}
+
+.decide-card-center {
+  flex: 1.4;
+  height: 560px;
 }
 
 .decide-card-bg {
@@ -704,6 +700,13 @@ main > .framer-section {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow: hidden;
+}
+
+.decide-card-hover-area {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .decide-card-title {
@@ -715,6 +718,33 @@ main > .framer-section {
   text-align: center;
   color: #fff;
   margin: 0;
+  transform: translateY(0);
+  transition: transform 0.35s ease;
+}
+
+.decide-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15.04px;
+  line-height: 22.56px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #FFFFFF;
+  opacity: 0;
+  visibility: hidden;
+  margin: 0;
+  max-height: 0;
+  transition: opacity 0.35s ease, visibility 0.35s ease, max-height 0.35s ease;
+}
+
+.decide-card-item:hover .decide-card-title {
+  transform: translateY(0);
+}
+
+.decide-card-item:hover .decide-card-desc {
+  opacity: 0.7;
+  visibility: visible;
+  max-height: 100px;
 }
 
 .decide-card-stats {
@@ -774,13 +804,15 @@ main > .framer-section {
   .decide-section { gap: 48px; }
   .decide-top-box { width: 88%; }
   .decide-subtext { font-size: 15px; }
-  .decide-card-item { height: 420px; }
+  .decide-card-item { height: 380px; }
+  .decide-card-center { height: 460px; }
 }
 
 @media (max-width: 1024px) {
   .decide-section { gap: 40px; }
   .decide-top-box { width: 90%; }
-  .decide-card-item { height: 380px; min-width: 200px; }
+  .decide-card-item { height: 300px; }
+  .decide-card-center { height: 380px; }
 }
 
 @media (max-width: 768px) {
@@ -788,7 +820,11 @@ main > .framer-section {
   .decide-top-box { width: 92%; gap: 14px; }
   .decide-label { font-size: 12px; }
   .decide-subtext { font-size: 14px; }
-  .decide-card-item { height: 360px; min-width: 200px; }
+  .decide-track { gap: 6px; }
+  .decide-card-item { height: 220px; }
+  .decide-card-center { height: 280px; }
+  .decide-card-title { font-size: 11px; }
+  .decide-card-stat-value { font-size: 18px; }
 }
 
 @media (max-width: 480px) {
@@ -797,12 +833,15 @@ main > .framer-section {
   .decide-label { font-size: 10px; }
   .decide-heading { font-size: clamp(22px, 6vw, 36px); }
   .decide-subtext { font-size: 13px; }
-  .decide-card-item { height: 320px; min-width: 180px; }
-  .decide-card-title { font-size: 14px; }
+  .decide-track { gap: 4px; }
+  .decide-card-item { height: 160px; border-radius: 12px; }
+  .decide-card-center { height: 210px; }
+  .decide-card-title { font-size: 9px; }
 }
 
 @media (max-width: 360px) {
-  .decide-card-item { height: 280px; min-width: 160px; }
+  .decide-card-item { height: 130px; }
+  .decide-card-center { height: 170px; }
 
   .cta-box {
     padding: 20px 16px;
