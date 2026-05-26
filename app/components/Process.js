@@ -44,11 +44,11 @@ export default function Process() {
 
       {/* Middle heading */}
       <div className="process-heading-box">
-        <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline className="process-heading-video process-heading-video--mobile" />
+        <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline preload="none" className="process-heading-video process-heading-video--mobile" />
         <h2 className="process-heading">
           Simple
           <span className="process-heading-img">
-            <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline className="process-heading-video" />
+            <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline preload="none" className="process-heading-video" />
           </span>
           Process
         </h2>

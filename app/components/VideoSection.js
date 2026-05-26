@@ -34,6 +34,7 @@ export default function VideoSection() {
           loop
           muted
           playsInline
+          preload="none"
         />
         <div className="video-overlay" />
 

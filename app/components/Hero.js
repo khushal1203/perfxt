@@ -11,7 +11,7 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="none"
         className="hero-bg"
         style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
       >
