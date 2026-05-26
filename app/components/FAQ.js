@@ -65,9 +65,11 @@ export default function FAQ() {
               </p>
             </div>
           </div>
-          <a href="mailto:info@perfxt.online" className="faq-btn">
-            <Image src="/images/home/icon3.svg" alt="" width={24} height={24} />
-            <span>Contact Today</span>
+          <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="faq-contact-btn">
+            <span className="faq-contact-icon-wrap">
+              <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
+            </span>
+            <span className="faq-contact-text">Download App</span>
           </a>
         </div>
 

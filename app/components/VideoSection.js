@@ -25,7 +25,7 @@ const cards = [
 
 export default function VideoSection() {
   return (
-    <section className="video-wrapper">
+    <section className="video-wrapper" id="video-section">
       <div className="video-box">
         <video
           className="video-bg"

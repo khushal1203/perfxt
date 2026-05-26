@@ -29,7 +29,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="process-wrapper">
+    <section className="process-wrapper" id="process">
       {/* Top label row */}
       <div className="process-label-row">
         <div className="process-label-item">

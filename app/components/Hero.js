@@ -25,6 +25,7 @@ export default function Hero() {
       <div className="hero-top-box">
         {/* Label */}
         <div className="hero-label-wrap">
+          <Image src="/images/home/heroicon.svg" alt="" width={12} height={12} />
           <span className="hero-label">Achieve more with your body data</span>
         </div>
 

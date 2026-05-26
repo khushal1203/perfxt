@@ -1,22 +1,39 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 
 const footerLinks = [
   {
     title: "Product",
-    links: ["Features", "Pricing", "Integrations", "Download app"],
+    links: [
+      { label: "Features", href: "#integrate" },
+      { label: "Pricing", href: "#pricing" },
+      { label: "Integrations", href: "#process" },
+      { label: "Download", href: "https://apps.apple.com/us/app/perfxt/id6758935129" },
+    ],
   },
   {
     title: "Company",
-    links: ["About", "Blog", "Careers", "Contact"],
+    links: [
+      { label: "How it Works", href: "#process" },
+      { label: "Win G-Wagon", href: "https://perfxtapp.framer.ai/sweepstake" },
+      { label: "FAQ", href: "#faqs" },
+      { label: "About", href: "#video-section" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Documentation", "Support", "Privacy Policy", "Terms"],
+    links: [
+      { label: "Terms of Use", href: "https://perfxtapp.framer.ai/terms-of-use" },
+      { label: "Privacy Policy", href: "https://perfxtapp.framer.ai/privacy-policy" },
+    ],
   },
   {
     title: "Connect",
-    links: ["Twitter", "Instagram", "LinkedIn", "Facebook"],
+    links: [
+      { label: "Los Angeles County, California, USA", href: "#" },
+      { label: "info@perfxt.online", href: "mailto:info@perfxt.online" },
+    ],
   },
 ];
 
@@ -63,12 +80,15 @@ const socialIcons = [
   },
 ];
 
+function scrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 export default function Footer() {
   return (
     <footer className="footer-wrapper">
-      {/* Top Section */}
       <div className="footer-top">
-        {/* Left: Logo + Description */}
         <div className="footer-left">
           <Image
             src="/images/home/logo.svg"
@@ -82,16 +102,19 @@ export default function Footer() {
           </p>
         </div>
 
-        {/* Right: Link Columns */}
         <div className="footer-right">
           {footerLinks.map((col) => (
             <div key={col.title} className="footer-col">
               <span className="footer-col-title">{col.title}</span>
               <div className="footer-col-links">
                 {col.links.map((link) => (
-                  <Link key={link} href="#" className="footer-link">
-                    {link}
-                  </Link>
+                  link.href.startsWith("http") ? (
+                    <a key={link.label} href={link.href} className="footer-link" target="_blank" rel="noopener noreferrer">{link.label}</a>
+                  ) : link.href.startsWith("mailto") ? (
+                    <a key={link.label} href={link.href} className="footer-link">{link.label}</a>
+                  ) : (
+                    <button key={link.label} className="footer-link" onClick={() => scrollTo(link.href.slice(1))}>{link.label}</button>
+                  )
                 ))}
               </div>
             </div>
@@ -99,7 +122,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Section */}
       <div className="footer-bottom">
         <div className="footer-socials">
           {socialIcons.map((icon) => (

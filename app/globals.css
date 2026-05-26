@@ -954,12 +954,26 @@ main > * {
   .decide-section { gap: 48px; }
   .decide-top-box { width: 88%; }
   .decide-subtext { font-size: 15px; }
+  .decide-card-item { width: 300px; height: 500px; }
+  .decide-card-title { font-size: 22px; }
+  .decide-card-stat-value { font-size: 24px; }
+  .decide-card-stat-label { font-size: 10px; }
+  .decide-marquee-fade { width: 140px; }
 }
 
 /* Laptop: 768px - 1024px */
 @media (max-width: 1024px) {
   .decide-section { gap: 40px; }
   .decide-top-box { width: 90%; }
+  .decide-heading { font-size: clamp(28px, 3.5vw, 48px); }
+  .decide-subtext { font-size: 14px; }
+  .decide-card-item { width: 260px; height: 440px; border-radius: 16px; }
+  .decide-card-title { font-size: 18px; }
+  .decide-card-stat-value { font-size: 22px; }
+  .decide-card-stat-label { font-size: 10px; }
+  .decide-card-stats { padding: 10px 12px; border-radius: 12px; }
+  .decide-card-icon-wrap { width: 38px; height: 38px; border-radius: 8px; }
+  .decide-marquee-fade { width: 100px; }
 }
 
 /* Tablet: 425px - 768px */
@@ -967,11 +981,15 @@ main > * {
   .decide-section { gap: 32px; }
   .decide-top-box { width: 92%; gap: 14px; }
   .decide-label { font-size: 12px; }
+  .decide-heading { font-size: clamp(24px, 4vw, 36px); }
   .decide-subtext { font-size: 14px; }
-  .decide-card-item { width: 260px; height: 420px; }
-  .decide-card-title { font-size: 14px; }
-  .decide-card-stat-value { font-size: 18px; }
-  .decide-marquee-fade { width: 80px; }
+  .decide-card-item { width: calc((100vw - 48px) / 3); height: calc(((100vw - 48px) / 3) * 1.6); border-radius: 14px; }
+  .decide-card-title { font-size: clamp(11px, 2vw, 15px); }
+  .decide-card-stat-value { font-size: clamp(14px, 2.5vw, 18px); }
+  .decide-card-stat-label { font-size: 9px; }
+  .decide-card-stats { padding: 8px 10px; border-radius: 10px; }
+  .decide-card-icon-wrap { width: 34px; height: 34px; }
+  .decide-marquee-fade { width: 0px; }
 }
 
 /* Mobile: 360px - 425px */
@@ -979,16 +997,23 @@ main > * {
   .decide-section { gap: 24px; }
   .decide-top-box { width: 95%; gap: 12px; }
   .decide-label { font-size: 10px; }
-  .decide-heading { font-size: clamp(22px, 6vw, 36px); }
+  .decide-heading { font-size: clamp(22px, 6vw, 32px); }
   .decide-subtext { font-size: 13px; }
-  .decide-card-item { width: 220px; height: 360px; border-radius: 14px; }
-  .decide-card-title { font-size: 13px; }
-  .decide-marquee-fade { width: 50px; }
+  .decide-card-item { width: calc(100vw - 32px); height: calc((100vw - 32px) * 1.4); border-radius: 16px; }
+  .decide-card-title { font-size: 16px; }
+  .decide-card-stat-value { font-size: 22px; }
+  .decide-card-stat-label { font-size: 10px; }
+  .decide-card-stats { padding: 10px 12px; border-radius: 12px; }
+  .decide-card-icon-wrap { width: 38px; height: 38px; border-radius: 8px; }
+  .decide-marquee-fade { width: 0px; }
 }
 
 /* Small Mobile: 360px */
 @media (max-width: 360px) {
-  .decide-card-item { }
+  .decide-card-item { width: 160px; height: 290px; border-radius: 10px; }
+  .decide-card-title { font-size: 12px; }
+  .decide-card-stat-value { font-size: 14px; }
+  .decide-marquee-fade { width: 30px; }
 
   .cta-box {
     padding: 20px 16px;
@@ -4374,13 +4399,13 @@ main > * {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 40px;
 }
 
 /* Left */
 .faq-left {
-  width: 280px;
+  width: 460px;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -4418,7 +4443,7 @@ main > * {
 .faq-heading {
   font-family: "Outfit", sans-serif;
   font-weight: 600;
-  font-size: 60px;
+  font-size: 48px;
   line-height: 110%;
   letter-spacing: -0.02em;
   color: #151515;
@@ -4439,32 +4464,36 @@ main > * {
   text-decoration: underline;
 }
 
-.faq-btn {
-  width: 290px;
-  height: 60px;
+.faq-contact-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 8px 16px 8px 8px;
+  background: #151515;
+  border-radius: 100px;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.faq-contact-btn:hover {
+  opacity: 0.8;
+}
+
+.faq-contact-icon-wrap {
+  width: clamp(22px, 2vw, 30px);
+  height: clamp(22px, 2vw, 30px);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 9.6px;
-  border-radius: 120px;
-  padding: 12px 24px;
-  background: #3b50e0;
-  text-decoration: none;
-  transition: opacity 0.2s;
+  flex-shrink: 0;
 }
 
-.faq-btn:hover {
-  opacity: 0.88;
-}
-
-.faq-btn img {
-  filter: brightness(0) invert(1);
-}
-
-.faq-btn span {
+.faq-contact-text {
   font-family: "Outfit", sans-serif;
+  font-size: clamp(12px, 1vw, 16px);
   font-weight: 500;
-  font-size: clamp(14px, 1.4vw, 19.2px);
   line-height: 100%;
   color: #ffffff;
   white-space: nowrap;
@@ -4533,7 +4562,7 @@ main > * {
 /* FAQ Responsive */
 @media (max-width: 1440px) {
   .faq-box { width: calc(100% - 64px); gap: 40px; }
-  .faq-left { width: 280px; flex-shrink: 0; gap: 32px; padding-left: 0; }
+  .faq-left { width: 380px; flex-shrink: 0; gap: 32px; padding-left: 0; }
   .faq-heading { font-size: 40px; }
   .faq-right { flex: 1; min-width: 0; gap: 14px; }
 }
@@ -4541,23 +4570,23 @@ main > * {
 /* 1140px - 1024px fix */
 @media (min-width: 1025px) and (max-width: 1140px) {
   .faq-box { width: calc(100% - 48px); gap: 32px; }
-  .faq-left { width: 240px; gap: 24px; }
+  .faq-left { width: 320px; gap: 24px; }
   .faq-heading { font-size: 32px; }
   .faq-right { flex: 1; min-width: 0; gap: 12px; }
   .faq-item-btn { padding: 14px 16px; }
   .faq-item-a { padding: 0 16px 14px; }
-  .faq-btn { width: 100%; height: 54px; }
+  .faq-contact-btn { height: 54px; }
 }
 
 /* Laptop: 768px - 1024px */
 @media (max-width: 1024px) {
   .faq-box { width: calc(100% - 48px); gap: 32px; }
-  .faq-left { width: 220px; gap: 24px; }
+  .faq-left { width: 280px; gap: 24px; }
   .faq-heading { font-size: 28px; }
   .faq-right { flex: 1; min-width: 0; gap: 12px; }
   .faq-item-btn { padding: 14px 16px; }
   .faq-item-a { padding: 0 16px 14px; }
-  .faq-btn { width: 100%; height: 54px; }
+  .faq-contact-btn { height: 54px; }
 }
 
 /* Tablet: 425px - 768px */
@@ -4573,7 +4602,7 @@ main > * {
   .faq-right { width: 100%; gap: 12px; }
   .faq-label { font-size: 12px; }
   .faq-subtext { font-size: 14px; }
-  .faq-btn { width: 100%; height: 52px; }
+  .faq-contact-btn { height: 52px; }
 }
 
 /* Mobile: 360px - 425px */
@@ -4587,7 +4616,7 @@ main > * {
   .faq-item { border-radius: 12px; }
   .faq-item-btn { padding: 14px; min-height: 52px; gap: 12px; }
   .faq-item-a { padding: 0 14px 14px; }
-  .faq-btn { height: 48px; }
+  .faq-contact-btn { height: 48px; }
 }
 
 /* Small Mobile: 360px */
@@ -4601,7 +4630,7 @@ main > * {
   .faq-item { border-radius: 10px; }
   .faq-item-btn { padding: 12px; min-height: 48px; }
   .faq-item-a { padding: 0 12px 12px; }
-  .faq-btn { height: 44px; }
+  .faq-contact-btn { height: 44px; }
 }
 
 /* ── Footer ── */
@@ -4676,6 +4705,7 @@ main > * {
 .footer-col-links {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   opacity: 0.7;
 }
 
@@ -4688,6 +4718,13 @@ main > * {
   color: #151515;
   text-decoration: none;
   transition: opacity 0.2s;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: block;
+  text-align: left;
 }
 
 .footer-link:hover {

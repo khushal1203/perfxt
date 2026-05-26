@@ -20,7 +20,8 @@ export default function Decide() {
     const track = trackRef.current;
     if (!track) return;
 
-    const CARD_W = 340;
+    const w = window.innerWidth;
+    const CARD_W = w <= 425 ? w - 32 : w <= 768 ? (w - 48) / 3 : w <= 1024 ? 260 : w <= 1440 ? 300 : 340;
     const GAP = 16;
     const STEP = CARD_W + GAP;
     const TOTAL = STEP * cards.length;
