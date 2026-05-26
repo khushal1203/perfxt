@@ -19,8 +19,10 @@ export default function Individuals() {
     pauseOnHover: false,
     cssEase: "ease-in-out",
     responsive: [
-      { breakpoint: 1200, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 1, centerPadding: "50px" } },
+      { breakpoint: 1280, settings: { slidesToShow: 3, centerPadding: "60px" } },
+      { breakpoint: 1024, settings: { slidesToShow: 3, centerPadding: "20px" } },
+      { breakpoint: 768,  settings: { slidesToShow: 1, centerPadding: "120px" } },
+      { breakpoint: 425,  settings: { slidesToShow: 1, centerPadding: "60px" } },
     ],
   };
 

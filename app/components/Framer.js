@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 
 const ORANGE = "#E05C3B";
 const BLUE   = "#3B50E0";
@@ -56,6 +57,26 @@ const TAG_LINES = [
   ]},
 ];
 
+const ORANGE_TAGS = TAG_LINES.flatMap(({ tags }) => tags.filter(t => t.side === "o").map(t => t.text || t.lines?.join(" ")));
+const BLUE_TAGS   = TAG_LINES.flatMap(({ tags }) => tags.filter(t => t.side === "b").map(t => t.text || t.lines?.join(" ")));
+
+function MobileTag({ text, side }) {
+  const isBlue = side === "b";
+  const color  = isBlue ? BLUE : ORANGE;
+  const bg     = isBlue ? "#ECEFFE" : "#FCEFEC";
+  const border = isBlue ? "#3B50E04D" : "#E05C3B4D";
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 8, background: bg, border: `1px solid ${border}`, borderRadius: 10, padding: "7px 12px 7px 8px" }}>
+      {isBlue ? (
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke={color} strokeWidth="1.33" strokeLinecap="round" strokeLinejoin="round" /></svg>
+      ) : (
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="8" fill={color} /><line x1="5.5" y1="5.5" x2="12.5" y2="12.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" /><line x1="12.5" y1="5.5" x2="5.5" y2="12.5" stroke="#fff" strokeWidth="1.5" strokeLinecap="round" /></svg>
+      )}
+      <span style={{ fontFamily: "Inter, sans-serif", fontSize: 13, color, lineHeight: 1.4 }}>{text}</span>
+    </div>
+  );
+}
+
 function Tag({ x, y, text, color, bg, borderColor, isBlue, lines }) {
   const isMulti = Array.isArray(lines);
   const maxLen = isMulti ? Math.max(...lines.map(l => l.length)) : text.length;
@@ -95,6 +116,14 @@ function Tag({ x, y, text, color, bg, borderColor, isBlue, lines }) {
 }
 
 export default function Framer() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768 && window.innerWidth > 425);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section className="framer-section" id="integrate">
       <div className="framer-header">
@@ -110,7 +139,7 @@ export default function Framer() {
           viewBox="0 0 2006 976"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid slice"
+          preserveAspectRatio="xMidYMid meet"
         >
           {LINES.map(({ id, d, gx1, gx2, gy }) => (
             <path key={id} id={id} d={d} stroke={`url(#grad-${id})`} strokeWidth="2" />
@@ -132,7 +161,7 @@ export default function Framer() {
             })
           )}
 
-          {TAG_LINES.map(({ lineIdx, tags }) => {
+          {!isMobile && TAG_LINES.map(({ lineIdx, tags }) => {
             const y = LINES[lineIdx].gy;
             return (
               <g key={lineIdx}>
@@ -166,6 +195,16 @@ export default function Framer() {
           </defs>
         </svg>
       </div>
+      {isMobile && (
+        <div className="framer-mobile-tags">
+          <div className="framer-mobile-col">
+            {ORANGE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="o" />)}
+          </div>
+          <div className="framer-mobile-col">
+            {BLUE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="b" />)}
+          </div>
+        </div>
+      )}
     </section>
   );
 }

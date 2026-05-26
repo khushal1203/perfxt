@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const reviews = [
   {
@@ -50,18 +50,42 @@ const images = [
 
 export default function Reviews() {
   const [start, setStart] = useState(0);
+  const [isTablet, setIsTablet] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const rowRef = useRef(null);
   const total = reviews.length;
 
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 480);
+    const check = () => {
+      setIsTablet(window.innerWidth <= 768 && window.innerWidth > 425);
+      setIsMobile(window.innerWidth <= 425);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  const prev = () => setStart((p) => (p - 1 + total) % total);
-  const next = () => setStart((p) => (p + 1) % total);
+  useEffect(() => {
+    if ((!isTablet && !isMobile) || !rowRef.current) return;
+    const row = rowRef.current;
+    const card = row.children[start];
+    if (!card) return;
+    const isWrap = (prevRef.current === total - 1 && start === 0) || (prevRef.current === 0 && start === total - 1);
+    const behavior = isWrap ? "instant" : "smooth";
+    const scrollLeft = card.offsetLeft - (row.offsetWidth - card.offsetWidth) / 2;
+    row.scrollTo({ left: scrollLeft, behavior });
+  }, [start, isTablet, isMobile]);
+
+  const prevRef = useRef(0);
+
+  const prev = () => {
+    prevRef.current = start;
+    setStart((p) => (p - 1 + total) % total);
+  };
+  const next = () => {
+    prevRef.current = start;
+    setStart((p) => (p + 1) % total);
+  };
 
   const visible = [reviews[start % total], reviews[(start + 1) % total], reviews[(start + 2) % total]];
 
@@ -90,7 +114,6 @@ export default function Reviews() {
         </p>
       </div>
 
-      {/* Mobile: arrows above all cards */}
       <div className="reviews-nav-mobile">
         <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
           <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
@@ -100,11 +123,10 @@ export default function Reviews() {
         </button>
       </div>
 
-      <div className="reviews-cards-row">
-        {visible.map((r, i) => (
-          <div key={`${start}-${i}`} className={`reviews-card-wrapper${i === 1 ? " reviews-card-wrapper--mid" : ""}`}>
-            {/* Desktop: arrows only above middle card */}
-            {i === 1 && (
+      <div ref={rowRef} className="reviews-cards-row">
+        {(isTablet || isMobile ? reviews : visible).map((r, i) => (
+          <div key={i} className={`reviews-card-wrapper${!isTablet && i === 1 ? " reviews-card-wrapper--mid" : ""}`}>
+            {!isTablet && i === 1 && (
               <div className="reviews-card-icons">
                 <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
                   <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />

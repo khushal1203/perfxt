@@ -24,7 +24,6 @@ import AnimateOnScroll from "./components/AnimateOnScroll";
 export default function Home() {
   return (
     <main>
-      <Header />
       <Hero />
       <AnimateOnScroll><Brands /></AnimateOnScroll>
       <Decide />
