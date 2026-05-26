@@ -46,7 +46,7 @@ export default function Header() {
 
         {/* Download Button — desktop */}
         <div className={`header-cta${scrolled ? " header-cta--hidden" : ""}`}>
-          <a href="#" className="download-btn">
+          <a href="https://apps.apple.com/us/app/perfxt/id675893512" target="_blank" rel="noopener noreferrer" className="download-btn">
             <span className="download-icon-wrap">
               <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
             </span>
@@ -68,7 +68,7 @@ export default function Header() {
           {navItems.map((item) => (
             <button key={item.label} className="mobile-nav-item" onClick={() => { scrollTo(item.href.slice(1)); setOpen(false); }}>{item.label}</button>
           ))}
-          <a href="#" className="download-btn mobile-download-btn">
+          <a href="https://apps.apple.com/us/app/perfxt/id675893512" target="_blank" rel="noopener noreferrer" className="download-btn mobile-download-btn">
             <span className="download-icon-wrap">
               <Image src="/images/home/icon.svg" alt="App icon" width={29} height={29} />
             </span>

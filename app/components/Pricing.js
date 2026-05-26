@@ -22,7 +22,7 @@ const yearlyFeatures = [
   "Weekly performance report",
 ];
 
-function PricingCard({ plan, price, desc, highlight, featureList, icon }) {
+function PricingCard({ plan, price, desc, highlight, featureList, icon, perLabel }) {
   return (
     <div className={`pc-card${highlight ? " pc-card--highlight" : ""}`}>
       {/* Top row: plan badge + calendar icon */}
@@ -35,16 +35,16 @@ function PricingCard({ plan, price, desc, highlight, featureList, icon }) {
       <div className="pc-price-block">
         <div className="pc-price-row">
           <span className="pc-price">${price}</span>
-          <span className="pc-per">/month</span>
+          <span className="pc-per">{perLabel}</span>
         </div>
         <p className="pc-price-desc">{desc}</p>
       </div>
 
       {/* CTA button */}
-      <button className="pc-cta-btn">
+      <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="pc-cta-btn">
         <Image src="/images/home/r.svg" alt="" width={20} height={20} />
         <span>Start Free Trial</span>
-      </button>
+      </a>
 
       {/* Features */}
       <div className="pc-features">
@@ -110,19 +110,21 @@ export default function Pricing() {
         <div className="pricing-cards-row">
           <PricingCard
             plan="Monthly Plan"
-            price="7"
+            price="14"
             desc="Everything to start. Cancel anytime."
             highlight={billing === "monthly"}
             featureList={features}
             icon="/images/home/celender.svg"
+            perLabel="/month"
           />
           <PricingCard
-            plan="Yearly Plan"
-            price="14"
+            plan="Annual Plan"
+            price="49"
             desc="Less than a coffee a week. Lock the 50% rate forever."
             highlight={billing === "yearly"}
             featureList={yearlyFeatures}
             icon="/images/home/vicon2.svg"
+            perLabel="vs $99/year"
           />
         </div>
       </div>

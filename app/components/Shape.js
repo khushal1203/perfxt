@@ -21,7 +21,7 @@ export default function Shape() {
 
         {/* Right */}
         <div className="shape-right">
-          <a href="#" className="shape-btn shape-btn--primary">
+          <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="shape-btn shape-btn--primary">
             <Image src="/images/home/icon2.svg" alt="Start" width={24} height={24} />
             <span>Try Perfxt Today</span>
           </a>

@@ -118,7 +118,7 @@ function Tag({ x, y, text, color, bg, borderColor, isBlue, lines }) {
 export default function Framer() {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768 && window.innerWidth > 425);
+    const check = () => setIsMobile(window.innerWidth <= 768);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);

@@ -162,7 +162,9 @@ export default function WhatYouGet() {
             </div>
           </div>
           <div className="wyg-card-right">
-            <Image src={box.img} alt="What you get visual" width={477} height={740} className="wyg-card-right-img" />
+            <div className="wyg-card-right-img-wrap">
+              <Image src={box.img} alt="What you get visual" width={477} height={740} className="wyg-card-right-img" />
+            </div>
           </div>
         </div>
       ) : (
