@@ -710,77 +710,49 @@ main > .framer-section {
 }
 
 /* ── Decide Track ── */
-.decide-track-outer {
-  width: 100%;
-  overflow: hidden;
-  cursor: grab;
-  user-select: none;
-}
-
-.decide-carousel {
+/* ── Decide Marquee ── */
+.decide-marquee-outer {
   position: relative;
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 660px;
-  background: #ffffff;
+  overflow: hidden;
 }
 
-.decide-row {
+.decide-marquee-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 180px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.decide-marquee-fade--left {
+  left: 0;
+  background: linear-gradient(to right, #ffffff 0%, transparent 100%);
+}
+
+.decide-marquee-fade--right {
+  right: 0;
+  background: linear-gradient(to left, #ffffff 0%, transparent 100%);
+}
+
+.decide-marquee-track {
   display: flex;
   flex-direction: row;
-  align-items: stretch;
-  width: 100%;
-  gap: 8px;
-  padding: 0;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  gap: 16px;
+  padding: 20px 0;
+  will-change: transform;
 }
-
-.decide-btn {
-  position: absolute;
-  z-index: 10;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.decide-btn--prev { left: 8px; }
-.decide-btn--next { right: 8px; }
 
 .decide-card-item {
-  flex: 1;
-  height: 620px;
+  flex-shrink: 0;
+  width: 340px;
+  height: 560px;
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  transition: flex 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              filter 0.5s cubic-bezier(0.4, 0, 0.2, 1),
-              height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: flex, opacity, transform;
-  align-self: center;
 }
-
-.decide-card-item:not(.decide-card-center) {
-  opacity: 1.2;
-  filter: brightness(0.9);
-}
-
-.decide-card-center {
-  flex: 1.7;
-  height: 660px;
-  opacity: 1;
-  filter: brightness(1);
-  align-self: stretch;
-}
-
-
 
 .decide-card-bg {
   width: 100%;
@@ -789,11 +761,6 @@ main > .framer-section {
   object-position: center top;
   display: block;
   pointer-events: none;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.decide-card-center .decide-card-bg {
-  transform: scale(1.03);
 }
 
 .decide-card-gradient {
@@ -848,11 +815,7 @@ main > .framer-section {
   transition: opacity 0.35s ease, visibility 0.35s ease, max-height 0.35s ease;
 }
 
-.decide-card-center:hover .decide-card-title {
-  transform: translateY(0);
-}
-
-.decide-card-center:hover .decide-card-desc {
+.decide-card-item:hover .decide-card-desc {
   opacity: 0.7;
   visibility: visible;
   max-height: 100px;
@@ -927,8 +890,10 @@ main > .framer-section {
   .decide-top-box { width: 92%; gap: 14px; }
   .decide-label { font-size: 12px; }
   .decide-subtext { font-size: 14px; }
-  .decide-card-title { font-size: 11px; }
+  .decide-card-item { width: 260px; height: 420px; }
+  .decide-card-title { font-size: 14px; }
   .decide-card-stat-value { font-size: 18px; }
+  .decide-marquee-fade { width: 80px; }
 }
 
 @media (max-width: 480px) {
@@ -937,8 +902,9 @@ main > .framer-section {
   .decide-label { font-size: 10px; }
   .decide-heading { font-size: clamp(22px, 6vw, 36px); }
   .decide-subtext { font-size: 13px; }
-  .decide-card-item { border-radius: 12px; }
-  .decide-card-title { font-size: 9px; }
+  .decide-card-item { width: 220px; height: 360px; border-radius: 14px; }
+  .decide-card-title { font-size: 13px; }
+  .decide-marquee-fade { width: 50px; }
 }
 
 @media (max-width: 360px) {

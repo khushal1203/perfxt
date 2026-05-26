@@ -1,5 +1,5 @@
 "use client";
-import { useState, useRef } from "react";
+import { useRef, useEffect } from "react";
 
 const cards = [
   { src: "/images/home/img1.png", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "Call budget", value: "3/5", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
@@ -9,38 +9,33 @@ const cards = [
   { src: "/images/home/img5.png", icon: "/images/home/dicon5.svg", title: "Is your schedule helping recovery or hurting it?", label: "Sleep debt", value: "-42m", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
 ];
 
-const N = cards.length;
+const DOUBLED = [...cards, ...cards];
 
 export default function Decide() {
-  const [center, setCenter] = useState(2);
-  const dragStart = useRef(null);
+  const trackRef = useRef(null);
+  const animRef = useRef(null);
+  const posRef = useRef(0);
 
-  const prev = () => { setCenter((c) => (c - 1 + N) % N); };
-  const next = () => { setCenter((c) => (c + 1) % N); };
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
 
-  const onMouseDown = (e) => { dragStart.current = e.pageX; };
-  const onMouseUp = (e) => {
-    if (dragStart.current === null) return;
-    const delta = e.pageX - dragStart.current;
-    if (delta > 50) prev();
-    else if (delta < -50) next();
-    dragStart.current = null;
-  };
-  const onTouchStart = (e) => { dragStart.current = e.touches[0].pageX; };
-  const onTouchEnd = (e) => {
-    if (dragStart.current === null) return;
-    const delta = e.changedTouches[0].pageX - dragStart.current;
-    if (delta > 50) prev();
-    else if (delta < -50) next();
-    dragStart.current = null;
-  };
+    const CARD_W = 340;
+    const GAP = 16;
+    const STEP = CARD_W + GAP;
+    const TOTAL = STEP * cards.length;
+    const SPEED = 0.5; // px per frame — dhimi speed
 
-  const order = [-2, -1, 0, 1, 2].map((offset, i) => ({
-    card: cards[(center + offset + N) % N],
-    isCenter: i === 2,
-    cardIndex: (center + offset + N) % N,
-    position: i,
-  }));
+    const animate = () => {
+      posRef.current += SPEED;
+      if (posRef.current >= TOTAL) posRef.current -= TOTAL;
+      track.style.transform = `translateX(-${posRef.current}px)`;
+      animRef.current = requestAnimationFrame(animate);
+    };
+
+    animRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(animRef.current);
+  }, []);
 
   return (
     <section className="decide-section" id="sweep">
@@ -55,55 +50,32 @@ export default function Decide() {
         </p>
       </div>
 
-      <div
-        className="decide-carousel"
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onTouchStart={onTouchStart}
-        onTouchEnd={onTouchEnd}
-        style={{ cursor: "grab" }}
-      >
-        <button className="decide-btn decide-btn--prev" onClick={prev}>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="24" fill="#151515" fillOpacity="0.7" />
-            <path d="M27 16L19 24L27 32" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-
-        <div className="decide-row">
-          {order.map(({ card, isCenter, cardIndex }) => (
-            <div key={cardIndex} className={isCenter ? "decide-card-item decide-card-center" : "decide-card-item"}>
+      <div className="decide-marquee-outer">
+        <div className="decide-marquee-fade decide-marquee-fade--left" />
+        <div className="decide-marquee-fade decide-marquee-fade--right" />
+        <div className="decide-marquee-track" ref={trackRef}>
+          {DOUBLED.map((card, i) => (
+            <div key={i} className="decide-card-item">
               <img src={card.src} alt="" draggable={false} className="decide-card-bg" />
-              {isCenter && (
-                <>
-                  <div className="decide-card-gradient" />
-                  <div className="decide-card-content">
-                    <div className="decide-card-hover-area">
-                      <p className="decide-card-title">{card.title}</p>
-                      <p className="decide-card-desc">{card.desc}</p>
-                    </div>
-                    <div className="decide-card-stats">
-                      <div className="decide-card-icon-wrap">
-                        <img src={card.icon} alt="" />
-                      </div>
-                      <div className="decide-card-stat-info">
-                        <span className="decide-card-stat-label">{card.label}</span>
-                        <span className="decide-card-stat-value">{card.value}</span>
-                      </div>
-                    </div>
+              <div className="decide-card-gradient" />
+              <div className="decide-card-content">
+                <div className="decide-card-hover-area">
+                  <p className="decide-card-title">{card.title}</p>
+                  <p className="decide-card-desc">{card.desc}</p>
+                </div>
+                <div className="decide-card-stats">
+                  <div className="decide-card-icon-wrap">
+                    <img src={card.icon} alt="" />
                   </div>
-                </>
-              )}
+                  <div className="decide-card-stat-info">
+                    <span className="decide-card-stat-label">{card.label}</span>
+                    <span className="decide-card-stat-value">{card.value}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
         </div>
-
-        <button className="decide-btn decide-btn--next" onClick={next}>
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="24" fill="#151515" fillOpacity="0.7" />
-            <path d="M21 16L29 24L21 32" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
       </div>
     </section>
   );
