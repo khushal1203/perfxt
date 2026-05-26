@@ -2911,6 +2911,7 @@ main > * {
     object-position: bottom center !important;
     position: relative !important;
     inset: unset !important;
+    margin-bottom: -13px !important;
   }
 
   .wyg-card-feature-text {
@@ -3218,9 +3219,10 @@ main > * {
   .ind-wrapper {
     padding-left: 0;
     padding-right: 0;
+    overflow: hidden;
   }
   .ind-slide-item {
-    padding: 0;
+    padding: 0 16px;
   }
   .ind-slide-item .ind-phone-frame {
     opacity: 1;
