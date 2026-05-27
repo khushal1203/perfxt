@@ -30,23 +30,45 @@ export default function Hero() {
         </div>
 
         {/* Heading */}
-        <h1 className="hero-heading">
-          Turn Your Body Data Into
-          <br />
-          Better Decisions
-        </h1>
+       <h1 className="hero-heading">
+  <span className="desktop-heading">
+    Turn Your Body Data Into
+    <br />
+    Better Decisions
+  </span>
+
+  <span className="mobile-heading">
+    Turn Your Body
+    <br />
+    Data Into Better
+    <br />
+    Decisions
+  </span>
+</h1>
       </div>
 
       {/* Bottom image */}
       <div className="hero-bottom-img">
-        <Image
-          src="/images/home/hero1.png"
-          alt="Hero dashboard"
-          width={1367}
-          height={936}
-          style={{ width: "100%", height: "auto", display: "block", maxWidth: "100%" }}
-          priority
-        />
+        <div className="hero-img-default">
+          <Image
+            src="/images/home/hero1.png"
+            alt="Hero dashboard"
+            width={1367}
+            height={936}
+            style={{ width: "100%", height: "auto", display: "block" }}
+            priority
+          />
+        </div>
+        <div className="hero-img-mobile">
+          <Image
+            src="/images/home/hero2.png"
+            alt="Hero dashboard"
+            width={1367}
+            height={936}
+            style={{ width: "100%", height: "350px", display: "block", objectFit: "contain", objectPosition: "bottom center" }}
+            priority
+          />
+        </div>
       </div>
     </section>
   );

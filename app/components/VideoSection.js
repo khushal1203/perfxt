@@ -43,9 +43,7 @@ export default function VideoSection() {
           <div className="video-heading-group">
             <p className="video-label">Why Perfxt exists</p>
             <h2 className="video-heading">
-              Your wearable gives you data.
-              <br />
-              But you cannot use it properly.
+              Your wearable gives you data. But you cannot use it properly.
             </h2>
           </div>
           <p className="video-subtext">

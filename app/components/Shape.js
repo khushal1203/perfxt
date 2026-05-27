@@ -9,9 +9,7 @@ export default function Shape() {
           <div className="shape-text-group">
             <p className="shape-label">Shape Your Future Fast</p>
             <h2 className="shape-heading">
-              Design Your Days with
-              <br />
-              Precision.
+              Design Your Days with Precision.
             </h2>
           </div>
           <p className="shape-subtext">

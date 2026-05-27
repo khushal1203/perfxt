@@ -9,9 +9,7 @@ export default function CTA() {
           <div className="cta-text-group">
             <p className="cta-label">Ready in 2 minutes</p>
             <h2 className="cta-heading">
-              Stop guessing your days.
-              <br />
-              Start designing them.
+              Stop guessing your days. Start designing them.
             </h2>
           </div>
           <p className="cta-subtext">

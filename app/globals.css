@@ -26,6 +26,13 @@ main > * {
   padding-bottom: 40px;
 }
 
+@media (max-width: 425px) {
+  main > * {
+    padding-top: 20px !important;
+    padding-bottom: 20px !important;
+  }
+}
+
 
 /* ── Header ── */
 .header-wrapper {
@@ -264,6 +271,9 @@ main > * {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
 }
+.mobile-heading {
+  display: none;
+}
 
 .hero-bg {
   object-fit: cover;
@@ -319,6 +329,7 @@ main > * {
   left: 50%;
   transform: translateX(-50%);
   width: min(1367px, 88%);
+  height: 90%;
   z-index: 2;
   display: flex;
   align-items: flex-end;
@@ -387,39 +398,53 @@ main > * {
   }
 }
 
-@media (max-width: 480px) {
-  .hero-section {
-    min-height: 320px;
-    border-bottom-right-radius: 28px;
-    border-bottom-left-radius: 28px;
-  }
-  .hero-top-box {
-    top: 18%;
-    width: 95%;
-    gap: 5px;
-    padding-top: 4px;
-  }
-  .hero-label {
-    font-size: 8px;
-    letter-spacing: 0.01em;
-  }
-  .hero-heading {
-    font-size: clamp(18px, 5vw, 32px);
-  }
-  .hero-bottom-img {
-    width: 98%;
-  }
-}
+.hero-img-mobile { display: none; }
+.hero-img-default { display: block; width: 100%; }
+.hero-img-mobile img { height: 350px !important; width: auto !important; }
 
-@media (max-width: 360px) {
+
+@media (max-width: 425px) {
   .hero-section {
-    min-height: 320px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    height: 600px;
+    min-height: unset;
+    max-height: 600px;
   }
+
   .hero-top-box {
-    top: 18%;
-    width: 96%;
+    top: 20%;
+  }
+
+  .hero-label {
+    font-size: 12px;
+  }
+
+  .hero-heading {
+    font-size: clamp(36px, 9vw, 48px);
+    line-height: 1.05;
+    letter-spacing: -1px;
+  }
+
+  /* desktop text hide */
+  .desktop-heading {
+    display: none;
+  }
+
+  /* mobile text show */
+  .mobile-heading {
+    display: block;
+  }
+
+  .hero-bottom-img {
+    width: 105%;
+    height: 65%;
+  }
+
+  .hero-img-default {
+    display: none;
+  }
+
+  .hero-img-mobile {
+    display: block;
   }
 }
 
@@ -582,7 +607,7 @@ main > * {
     transform: none;
     left: auto;
     top: auto;
-    width: 95%;
+    width:100%;
     gap: 10px;
     margin-bottom: 24px;
   }
@@ -1010,7 +1035,7 @@ main > * {
   .decide-section { gap: 24px; }
   .decide-top-box { width: 95%; gap: 12px; }
   .decide-label { font-size: 10px; }
-  .decide-heading { font-size: clamp(22px, 6vw, 32px); }
+  .decide-heading { font-size: 34px !important; }
   .decide-subtext { font-size: 13px; }
   .decide-card-item { width: calc(100vw - 32px); height: calc((100vw - 32px) * 1.4); border-radius: 16px; }
   .decide-card-title { font-size: 16px; }
@@ -1033,10 +1058,6 @@ main > * {
     width: calc(100% - 24px);
     gap: 20px;
     border-radius: 14px;
-  }
-
-  .cta-heading {
-    font-size: clamp(24px, 7vw, 32px);
   }
 
   .cta-label {
@@ -2182,7 +2203,7 @@ main > * {
   }
 
   .process-step-title {
-    font-size: 18px;
+    font-size: 26px;
   }
 
   .process-step-desc {
@@ -2272,7 +2293,7 @@ main > * {
   }
 
   .video-heading {
-    font-size: clamp(20px, 5.5vw, 30px);
+    font-size: 34px !important;
   }
 
   .video-subtext {
@@ -2305,6 +2326,34 @@ main > * {
   .video-card-desc {
     font-size: 13px;
   }
+}
+
+@media (max-width: 425px) {
+  .cta-heading {
+    font-size: 34px !important;
+  }
+  .shape-heading {
+    font-size: 34px !important;
+  }
+  .ind-heading {
+    font-size: 34px !important;
+  }
+  .pricing-heading{
+    font-size: 34px !important;
+  }
+  .framer-heading{
+    font-size: 34px !important;
+  }
+  .reviews-heading{
+    font-size: 34px !important;
+  }
+  .aicover-heading{
+    font-size: 34px !important;
+  }
+  .faq-heading{
+    font-size: 34px !important;
+  }
+
 }
 
 @media (max-width: 425px) {
@@ -2371,6 +2420,9 @@ main > * {
   .process-step-top {
     align-items: center !important;
   }
+    .wyg-heading {
+    font-size: 34px !important;
+  }
 }
 
 @media (max-width: 360px) {
@@ -2400,7 +2452,7 @@ main > * {
   }
 
   .process-step-title {
-    font-size: 16px;
+    font-size: 20px;
   }
 
   .shape-wrapper {
@@ -2435,7 +2487,7 @@ main > * {
   }
 
   .wyg-heading {
-    font-size: clamp(26px, 7vw, 36px);
+    font-size: 20px !important;
   }
 
   .wyg-tab {
@@ -2638,7 +2690,7 @@ main > * {
 
   .wyg-tabs {
     width: 100%;
-    border-radius: 16px;
+    border-radius: 40px;
   }
 
   .wyg-tab {
@@ -2867,7 +2919,7 @@ main > * {
   }
 
   .wyg-card-heading {
-    font-size: 28px;
+    font-size: 34px;
   }
 
   .wyg-card-feature-text {
@@ -4429,22 +4481,22 @@ main > * {
     margin-left: 0;
     margin-top: 0;
     width: 100%;
-    gap: 10px;
-    padding: 40px 40px 0 40px;
+    gap: 8px;
+    padding: 30px 30px 0;
   }
   .lastcover-label { font-size: 9px; letter-spacing: 0.01em; }
-  .lastcover-heading { font-size: clamp(20px, 6vw, 28px); }
-  .lastcover-subtext { font-size: 12px; padding-top: 4px; }
+  .lastcover-heading { font-size: 34px !important; }
+  .lastcover-subtext { font-size: 12px; padding-top: 2px; }
   .lastcover-right {
     position: relative;
     width: 100%;
-    height: 260px;
+    height: 360px !important;
     right: unset;
     bottom: unset;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    margin-top: 16px;
+    margin-top: 0;
   }
   .lastcover-right-img {
     width: auto;
@@ -4453,7 +4505,7 @@ main > * {
     object-position: right bottom;
     transform: none;
   }
-  .lastcover-btns { padding-top: 10px; gap: 8px; flex-direction: column !important; }
+  .lastcover-btns { padding-top: 8px; gap: 8px; flex-direction: column !important; }
   .lastcover-btn { width: 100% !important; flex: unset !important; height: 44px; padding: 8px 14px; gap: 7px; }
   .lastcover-btn--white span,
   .lastcover-btn--outline span { font-size: 14px; }
@@ -4470,7 +4522,7 @@ main > * {
     gap: 8px;
   }
   .lastcover-label { font-size: 8px; }
-  .lastcover-heading { font-size: clamp(18px, 5.5vw, 24px); }
+  .lastcover-heading { font-size: 20px !important }
   .lastcover-subtext { font-size: 11px; }
   .lastcover-right { height: 220px; margin-top: 12px; }
   .lastcover-btns { padding-top: 8px; gap: 6px; }
