@@ -30,11 +30,11 @@ export default function LastCover() {
           </div>
 
           <div className="lastcover-btns">
-            <a href="#" className="lastcover-btn lastcover-btn--white">
+            <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="lastcover-btn lastcover-btn--white">
               <Image src="/images/home/r.svg" alt="" width={24} height={24} style={{filter: 'brightness(0)'}} />
               <span>Try Perfxt free</span>
             </a>
-            <a href="#" className="lastcover-btn lastcover-btn--outline">
+            <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="lastcover-btn lastcover-btn--outline">
               <Image src="/images/home/app.svg" alt="" width={24} height={24} style={{filter: 'brightness(0) invert(1)'}} />
               <span>Open App Store</span>
             </a>
