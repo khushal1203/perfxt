@@ -30,7 +30,6 @@ export default function Individuals() {
   const scrollRef = useRef(null);
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const autoScrollRef = useRef(null);
   const activeRef = useRef(0);
 
   useEffect(() => {
@@ -40,52 +39,74 @@ export default function Individuals() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
+  const posRef = useRef(0);
+  const animRef = useRef(null);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartPos = useRef(0);
+
   useEffect(() => {
     if (!isMobile) return;
     const el = scrollRef.current;
     if (!el) return;
 
-    const scrollToIndex = (index) => {
-      const slide = el.querySelectorAll(".ind-mobile-slide")[index];
-      if (!slide) return;
-      const targetLeft = slide.offsetLeft - (el.offsetWidth - slide.offsetWidth) / 2;
-      el.scrollTo({ left: targetLeft, behavior: "smooth" });
+    const slideEls = el.querySelectorAll(".ind-mobile-slide");
+    if (!slideEls.length) return;
+    const SLIDE_W = slideEls[0].offsetWidth + 16; // 16 = gap
+    const TOTAL = SLIDE_W * slides.length;
+    const SPEED = 0.4;
+
+    const updateActive = () => {
+      const idx = Math.round(posRef.current / SLIDE_W) % slides.length;
+      activeRef.current = idx;
+      setActive(idx);
     };
 
-    const startAutoScroll = () => {
-      autoScrollRef.current = setInterval(() => {
-        const next = (activeRef.current + 1) % slides.length;
-        activeRef.current = next;
-        setActive(next);
-        scrollToIndex(next);
-      }, 4000);
+    const animate = () => {
+      if (!isDragging.current) {
+        posRef.current += SPEED;
+        if (posRef.current >= TOTAL) posRef.current -= TOTAL;
+        el.scrollLeft = posRef.current;
+        updateActive();
+      }
+      animRef.current = requestAnimationFrame(animate);
     };
 
-    const stopAutoScroll = () => clearInterval(autoScrollRef.current);
+    const onTouchStart = (e) => {
+      isDragging.current = true;
+      dragStartX.current = e.touches[0].clientX;
+      dragStartPos.current = posRef.current;
+    };
 
-    startAutoScroll();
-    el.addEventListener("touchstart", stopAutoScroll);
-    el.addEventListener("touchend", () => setTimeout(startAutoScroll, 4000));
+    const onTouchMove = (e) => {
+      if (!isDragging.current) return;
+      const delta = dragStartX.current - e.touches[0].clientX;
+      let next = (dragStartPos.current + delta) % TOTAL;
+      if (next < 0) next += TOTAL;
+      posRef.current = next;
+      el.scrollLeft = posRef.current;
+      updateActive();
+    };
 
+    const onTouchEnd = () => {
+      posRef.current = el.scrollLeft;
+      isDragging.current = false;
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: true });
+    el.addEventListener("touchend", onTouchEnd);
+
+    animRef.current = requestAnimationFrame(animate);
     return () => {
-      stopAutoScroll();
-      el.removeEventListener("touchstart", stopAutoScroll);
+      cancelAnimationFrame(animRef.current);
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
     };
   }, [isMobile]);
 
-  const handleScroll = () => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const slides = el.querySelectorAll(".ind-mobile-slide");
-    let closest = 0;
-    let minDist = Infinity;
-    slides.forEach((slide, i) => {
-      const dist = Math.abs(slide.offsetLeft - el.scrollLeft - (el.offsetWidth - slide.offsetWidth) / 2);
-      if (dist < minDist) { minDist = dist; closest = i; }
-    });
-    activeRef.current = closest;
-    setActive(closest);
-  };
+  const handleScroll = () => {};
 
   return (
     <section className="ind-wrapper" id="integrate">
@@ -106,10 +127,10 @@ export default function Individuals() {
       {isMobile ? (
         <>
           <div className="ind-mobile-scroll" ref={scrollRef} onScroll={handleScroll}>
-            {slides.map((num) => (
-              <div key={num} className="ind-mobile-slide">
+            {[...slides, ...slides].map((num, i) => (
+              <div key={i} className="ind-mobile-slide">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/mobile/mobile${num}.png`} alt={`Mobile screen ${num}`} />
+                <img src={`/images/mobile/mobile${num}.webp`} alt={`Mobile screen ${num}`} />
               </div>
             ))}
           </div>
@@ -126,7 +147,7 @@ export default function Individuals() {
               <div key={num} className="ind-slide-item">
                 <div className="ind-phone-frame">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/images/mobile/mobile${num}.png`} alt={`Mobile screen ${num}`} />
+                  <img src={`/images/mobile/mobile${num}.webp`} alt={`Mobile screen ${num}`} />
                 </div>
               </div>
             ))}

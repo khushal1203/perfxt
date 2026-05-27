@@ -5,7 +5,7 @@ export const metadata = {
   title: "Perfxt",
   description: "Perfxt - Landing Page",
   icons: {
-    icon: "/images/home/logo.svg",
+    icon: "/images/home/fvicon.jpeg",
   },
 };
 

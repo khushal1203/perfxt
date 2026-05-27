@@ -8,7 +8,7 @@ const boxes = [
   {
     type: "card1",
     label: "First Day",
-    bg: "/images/home/what1.png",
+    bg: "/images/home/what1.webp",
     heading: "See what your today should look like",
     icon: "/images/home/wicon1.svg",
     features: [
@@ -21,12 +21,12 @@ const boxes = [
       { value: "-37%", label: "Meeting waste" },
       { value: "+24%", label: "Deep work time" },
     ],
-    img: "/images/home/whatm1.png",
+    img: "/images/home/whatm1.webp",
   },
   {
     type: "card1",
     label: "First Week",
-    bg: "/images/home/what3.png",
+    bg: "/images/home/what3.webp",
     labelColor: "#E05C3B",
     heading: "Start noticing what helps or hurts your performance",
     icon: "/images/home/wicon2.svg",
@@ -40,12 +40,12 @@ const boxes = [
       { value: "-42%", label: "Meeting waste" },
       { value: "-83%", label: "Burnout flags" },
     ],
-    img: "/images/home/whatm2.png",
+    img: "/images/home/whatm2.webp",
   },
   {
     type: "card1",
     label: "First Month",
-    bg: "/images/home/what6.png",
+    bg: "/images/home/what6.webp",
     labelColor: "#49BE76",
     iconFilter: "invert(63%) sepia(48%) saturate(500%) hue-rotate(95deg) brightness(95%) contrast(90%)",
     heading: "Start restructuring your week around your real energy",
@@ -60,12 +60,12 @@ const boxes = [
       { value: "+31%", label: "Focused work sessions" },
       { value: "-41%", label: "Overload days" },
     ],
-    img: "/images/home/whatm3.png",
+    img: "/images/home/whatm3.webp",
   },
   {
     type: "card1",
     label: "First Year",
-    bg: "/images/home/what4.png",
+    bg: "/images/home/what4.webp",
     labelColor: "#32A0D0",
     iconFilter: "invert(58%) sepia(60%) saturate(400%) hue-rotate(165deg) brightness(95%) contrast(90%)",
     heading: "Build a life and work rhythm that fits your body",
@@ -80,7 +80,7 @@ const boxes = [
       { value: "+48%", label: "Energy consistency" },
       { value: "3.2x", label: "Recovery awareness" },
     ],
-    img: "/images/home/whatm4.png",
+    img: "/images/home/whatm4.webp",
   },
 ];
 

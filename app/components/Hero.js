@@ -1,7 +1,17 @@
+"use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Header from "./Header";
 
 export default function Hero() {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   return (
     <section className="hero-section">
       <Header />
@@ -23,35 +33,31 @@ export default function Hero() {
 
       {/* Top content box */}
       <div className="hero-top-box">
-        {/* Label */}
         <div className="hero-label-wrap">
           <Image src="/images/home/heroicon.svg" alt="" width={12} height={12} />
           <span className="hero-label">Achieve more with your body data</span>
         </div>
-
-        {/* Heading */}
-       <h1 className="hero-heading">
-  <span className="desktop-heading">
-    Turn Your Body Data Into
-    <br />
-    Better Decisions
-  </span>
-
-  <span className="mobile-heading">
-    Turn Your Body
-    <br />
-    Data Into Better
-    <br />
-    Decisions
-  </span>
-</h1>
+        <h1 className="hero-heading">
+          <span className="desktop-heading">
+            Turn Your Body Data Into
+            <br />
+            Better Decisions
+          </span>
+          <span className="mobile-heading">
+            Turn Your Body
+            <br />
+            Data Into Better
+            <br />
+            Decisions
+          </span>
+        </h1>
       </div>
 
       {/* Bottom image */}
       <div className="hero-bottom-img">
         <div className="hero-img-default">
           <Image
-            src="/images/home/hero1.png"
+            src="/images/home/hero1.webp"
             alt="Hero dashboard"
             width={1367}
             height={936}
@@ -61,11 +67,11 @@ export default function Hero() {
         </div>
         <div className="hero-img-mobile">
           <Image
-            src="/images/home/hero2.png"
+            src="/images/home/hero2.webp"
             alt="Hero dashboard"
             width={1367}
             height={936}
-            style={{ width: "100%", height: "350px", display: "block", objectFit: "contain", objectPosition: "bottom center" }}
+            style={{ width: "100%", height: "100%", display: "block", objectFit: "contain", objectPosition: "bottom center" }}
             priority
           />
         </div>

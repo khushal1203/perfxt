@@ -118,7 +118,7 @@ export default function Decide() {
         <div className="decide-marquee-track" ref={trackRef}>
           {DOUBLED.map((card, i) => (
             <div key={i} className="decide-card-item">
-              <img src={card.src} alt="" draggable={false} className="decide-card-bg" />
+              <img src={card.src.replace('.png','.webp')} alt="" draggable={false} className="decide-card-bg" />
               <div className="decide-card-gradient" />
               <div className="decide-card-content">
                 <div className="decide-card-hover-area">

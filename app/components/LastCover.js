@@ -44,11 +44,18 @@ export default function LastCover() {
         {/* Right image */}
         <div className="lastcover-right">
           <Image
-            src="/images/home/last1.png"
+            src="/images/home/last1.webp"
             alt=""
             width={866}
             height={959}
-            className="lastcover-right-img"
+            className="lastcover-right-img lastcover-right-img--desktop"
+          />
+          <Image
+            src="/images/home/lastcover2.png"
+            alt=""
+            width={866}
+            height={959}
+            className="lastcover-right-img lastcover-right-img--mobile"
           />
         </div>
       </div>
