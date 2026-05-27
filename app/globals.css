@@ -3191,6 +3191,7 @@ main > * {
   width: 100%;
   margin-top: 60px;
   padding-bottom: 60px;
+  padding-top: 80px;
 }
 
 .ind-slide-item {
@@ -3231,6 +3232,9 @@ main > * {
 }
 
 @media (max-width: 1024px) {
+  .ind-slider-wrapper {
+    padding-top: 80px;
+  }
   .ind-slide-item .ind-phone-frame {
     border-radius: 24px;
     overflow: hidden;
@@ -3238,41 +3242,98 @@ main > * {
 }
 
 @media (max-width: 768px) {
-  .ind-slide-item .ind-phone-frame {
-    opacity: 0.5;
-    border-radius: 24px;
-    overflow: hidden;
-  }
-  .slick-center .ind-phone-frame {
-    opacity: 1;
-    border-radius: 24px;
-  }
-}
-
-@media (max-width: 425px) {
   .ind-wrapper {
     padding-left: 0;
     padding-right: 0;
     overflow: hidden;
   }
   .ind-slide-item {
-    padding: 0 16px;
+    padding: 0;
   }
   .ind-slide-item .ind-phone-frame {
     opacity: 1;
     transform: none;
-    border-radius: 0;
+    border-radius: 24px;
     overflow: hidden;
+    width: 100%;
+  }
+  .slick-center .ind-phone-frame {
+    opacity: 1;
+    transform: none;
+  }
+  .slick-center + .slick-slide .ind-phone-frame,
+  .slick-slide:has(+ .slick-center) .ind-phone-frame {
+    opacity: 1;
+    transform: none;
   }
   .ind-slider-wrapper {
     margin-top: 20px;
   }
+  .ind-slider-wrapper .slick-track {
+    display: flex;
+  }
+  .ind-slider-wrapper .slick-slide {
+    width: 100vw !important;
+    flex-shrink: 0;
+  }
   .ind-slider-wrapper .slick-list {
     overflow: hidden !important;
+    width: 100%;
   }
   .ind-phone-frame img {
+    width: 100%;
     max-height: none;
+    height: auto;
   }
+}
+
+.ind-mobile-scroll {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  width: 100%;
+  padding: 0 24px;
+  box-sizing: border-box;
+  gap: 16px;
+}
+.ind-mobile-scroll::-webkit-scrollbar { display: none; }
+
+.ind-mobile-slide {
+  flex: 0 0 75vw;
+  width: 75vw;
+  scroll-snap-align: center;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.ind-mobile-slide img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 24px;
+}
+
+.ind-mobile-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+  padding-bottom: 24px;
+}
+.ind-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #cbccd5;
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+.ind-dot--active {
+  background: #3b50e0;
+  width: 20px;
+  border-radius: 4px;
 }
 
 /* ── Pricing ── */
