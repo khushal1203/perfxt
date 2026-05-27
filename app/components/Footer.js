@@ -9,25 +9,27 @@ const footerLinks = [
       { label: "Features", href: "#integrate" },
       { label: "Pricing", href: "#pricing" },
       { label: "Integrations", href: "#process" },
-      { label: "Download", href: "https://apps.apple.com/us/app/perfxt/id6758935129" },
-    ],
-  },
-  {
-    title: "Company",
-    links: [
-      { label: "How it Works", href: "#process" },
-      { label: "Win G-Wagon", href: "https://perfxtapp.framer.ai/sweepstake" },
-      { label: "FAQ", href: "#faqs" },
-      { label: "About", href: "#video-section" },
+      { label: "Download",href: "https://apps.apple.com/us/app/perfxt/id6758935129"  },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Terms of Use", href: "https://perfxtapp.framer.ai/terms-of-use" },
-      { label: "Privacy Policy", href: "https://perfxtapp.framer.ai/privacy-policy" },
+      { label: "How it Works", href: "#process" },
+      { label: "Download", href: "https://apps.apple.com/us/app/perfxt/id6758935129"  },
+      { label: "Win G-Wagon", href: "https://perfxtapp.framer.ai/sweepstake" },
+      { label: "FAQ", href: "#faqs" },
+      
     ],
   },
+  {
+  title: "Company",
+  links: [
+    { label: "About", href: "#video-section" },
+    { label: "Terms & Condition", href: "/terms&condition" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
+  ],
+},
   {
     title: "Connect",
     links: [
@@ -108,14 +110,34 @@ export default function Footer() {
               <span className="footer-col-title">{col.title}</span>
               <div className="footer-col-links">
                 {col.links.map((link) => (
-                  link.href.startsWith("http") ? (
-                    <a key={link.label} href={link.href} className="footer-link" target="_blank" rel="noopener noreferrer">{link.label}</a>
-                  ) : link.href.startsWith("mailto") ? (
-                    <a key={link.label} href={link.href} className="footer-link">{link.label}</a>
-                  ) : (
-                    <button key={link.label} className="footer-link" onClick={() => scrollTo(link.href.slice(1))}>{link.label}</button>
-                  )
-                ))}
+  link.href.startsWith("http") ? (
+    <a
+      key={link.label}
+      href={link.href}
+      className="footer-link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {link.label}
+    </a>
+  ) : link.href.startsWith("mailto") ? (
+    <a key={link.label} href={link.href} className="footer-link">
+      {link.label}
+    </a>
+  ) : link.href.startsWith("/") ? (
+    <Link key={link.label} href={link.href} className="footer-link">
+      {link.label}
+    </Link>
+  ) : (
+    <button
+      key={link.label}
+      className="footer-link"
+      onClick={() => scrollTo(link.href.slice(1))}
+    >
+      {link.label}
+    </button>
+  )
+))}
               </div>
             </div>
           ))}
