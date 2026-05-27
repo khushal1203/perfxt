@@ -16,6 +16,10 @@ export default function Decide() {
   const animRef = useRef(null);
   const posRef = useRef(0);
 
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragStartPos = useRef(0);
+
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -25,17 +29,74 @@ export default function Decide() {
     const GAP = 16;
     const STEP = CARD_W + GAP;
     const TOTAL = STEP * cards.length;
-    const SPEED = 0.5; // px per frame — dhimi speed
+    const SPEED = 0.5;
 
     const animate = () => {
-      posRef.current += SPEED;
-      if (posRef.current >= TOTAL) posRef.current -= TOTAL;
-      track.style.transform = `translateX(-${posRef.current}px)`;
+      if (!isDragging.current) {
+        posRef.current += SPEED;
+        if (posRef.current >= TOTAL) posRef.current -= TOTAL;
+        if (posRef.current < 0) posRef.current += TOTAL;
+        track.style.transform = `translateX(-${posRef.current}px)`;
+      }
       animRef.current = requestAnimationFrame(animate);
     };
 
+    const onMouseDown = (e) => {
+      isDragging.current = true;
+      dragStartX.current = e.clientX;
+      dragStartPos.current = posRef.current;
+      track.style.cursor = "grabbing";
+    };
+
+    const onMouseMove = (e) => {
+      if (!isDragging.current) return;
+      const delta = dragStartX.current - e.clientX;
+      let next = (dragStartPos.current + delta) % TOTAL;
+      if (next < 0) next += TOTAL;
+      posRef.current = next;
+      track.style.transform = `translateX(-${posRef.current}px)`;
+    };
+
+    const onMouseUp = () => {
+      isDragging.current = false;
+      track.style.cursor = "grab";
+    };
+
+    const onTouchStart = (e) => {
+      isDragging.current = true;
+      dragStartX.current = e.touches[0].clientX;
+      dragStartPos.current = posRef.current;
+    };
+
+    const onTouchMove = (e) => {
+      if (!isDragging.current) return;
+      const delta = dragStartX.current - e.touches[0].clientX;
+      let next = (dragStartPos.current + delta) % TOTAL;
+      if (next < 0) next += TOTAL;
+      posRef.current = next;
+      track.style.transform = `translateX(-${posRef.current}px)`;
+    };
+
+    const onTouchEnd = () => { isDragging.current = false; };
+
+    track.style.cursor = "grab";
+    track.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    track.addEventListener("touchstart", onTouchStart, { passive: true });
+    track.addEventListener("touchmove", onTouchMove, { passive: true });
+    track.addEventListener("touchend", onTouchEnd);
+
     animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
+    return () => {
+      cancelAnimationFrame(animRef.current);
+      track.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+      track.removeEventListener("touchstart", onTouchStart);
+      track.removeEventListener("touchmove", onTouchMove);
+      track.removeEventListener("touchend", onTouchEnd);
+    };
   }, []);
 
   return (

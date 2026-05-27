@@ -31,6 +31,7 @@ export default function Individuals() {
   const [active, setActive] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const autoScrollRef = useRef(null);
+  const activeRef = useRef(0);
 
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth <= 768);
@@ -44,20 +45,27 @@ export default function Individuals() {
     const el = scrollRef.current;
     if (!el) return;
 
+    const scrollToIndex = (index) => {
+      const slide = el.querySelectorAll(".ind-mobile-slide")[index];
+      if (!slide) return;
+      const targetLeft = slide.offsetLeft - (el.offsetWidth - slide.offsetWidth) / 2;
+      el.scrollTo({ left: targetLeft, behavior: "smooth" });
+    };
+
     const startAutoScroll = () => {
       autoScrollRef.current = setInterval(() => {
-        const slideWidth = el.querySelector(".ind-mobile-slide")?.offsetWidth + 16;
-        const maxScroll = el.scrollWidth - el.offsetWidth;
-        const next = el.scrollLeft + slideWidth > maxScroll ? 0 : el.scrollLeft + slideWidth;
-        el.scrollTo({ left: next, behavior: "smooth" });
-      }, 2500);
+        const next = (activeRef.current + 1) % slides.length;
+        activeRef.current = next;
+        setActive(next);
+        scrollToIndex(next);
+      }, 4000);
     };
 
     const stopAutoScroll = () => clearInterval(autoScrollRef.current);
 
     startAutoScroll();
     el.addEventListener("touchstart", stopAutoScroll);
-    el.addEventListener("touchend", () => setTimeout(startAutoScroll, 3000));
+    el.addEventListener("touchend", () => setTimeout(startAutoScroll, 4000));
 
     return () => {
       stopAutoScroll();
@@ -68,8 +76,15 @@ export default function Individuals() {
   const handleScroll = () => {
     const el = scrollRef.current;
     if (!el) return;
-    const slideWidth = el.querySelector(".ind-mobile-slide")?.offsetWidth + 16;
-    setActive(Math.round(el.scrollLeft / slideWidth));
+    const slides = el.querySelectorAll(".ind-mobile-slide");
+    let closest = 0;
+    let minDist = Infinity;
+    slides.forEach((slide, i) => {
+      const dist = Math.abs(slide.offsetLeft - el.scrollLeft - (el.offsetWidth - slide.offsetWidth) / 2);
+      if (dist < minDist) { minDist = dist; closest = i; }
+    });
+    activeRef.current = closest;
+    setActive(closest);
   };
 
   return (

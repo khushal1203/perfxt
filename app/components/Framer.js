@@ -117,8 +117,12 @@ function Tag({ x, y, text, color, bg, borderColor, isBlue, lines }) {
 
 export default function Framer() {
   const [isMobile, setIsMobile] = useState(false);
+  const [is425, setIs425] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth <= 768);
+    const check = () => {
+      setIsMobile(window.innerWidth <= 768);
+      setIs425(window.innerWidth <= 425);
+    };
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
@@ -133,6 +137,11 @@ export default function Framer() {
           Perfxt turns your wearable data into a smart daily game plan,<br />so you work when you&apos;re sharp and rest before burnout hits.
         </p>
       </div>
+      {isMobile && is425 && (
+        <div className="framer-mobile-col framer-mobile-col--orange">
+          {ORANGE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="o" />)}
+        </div>
+      )}
       <div className="framer-svg-wrap">
         <svg
           className="framer-svg"
@@ -195,7 +204,7 @@ export default function Framer() {
           </defs>
         </svg>
       </div>
-      {isMobile && (
+      {isMobile && !is425 && (
         <div className="framer-mobile-tags">
           <div className="framer-mobile-col">
             {ORANGE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="o" />)}
@@ -203,6 +212,11 @@ export default function Framer() {
           <div className="framer-mobile-col">
             {BLUE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="b" />)}
           </div>
+        </div>
+      )}
+      {isMobile && is425 && (
+        <div className="framer-mobile-col framer-mobile-col--blue">
+          {BLUE_TAGS.map((text, i) => <MobileTag key={i} text={text} side="b" />)}
         </div>
       )}
     </section>

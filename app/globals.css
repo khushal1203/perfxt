@@ -584,7 +584,7 @@ main > * {
     top: auto;
     width: 95%;
     gap: 10px;
-    margin-bottom: -20px;
+    margin-bottom: 24px;
   }
   .framer-label {
     font-size: 11px;
@@ -613,9 +613,22 @@ main > * {
     gap: 8px;
     align-content: flex-start;
   }
+  .framer-mobile-col--orange,
+  .framer-mobile-col--blue {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .framer-mobile-col--orange {
+    margin-bottom: 0;
+    margin-top: 20px;
+  }
+  .framer-mobile-col--blue {
+    margin-top: 16px;
+  }
 }
 
-/* ── Brands ── */
 .brands-section {
   width: 100%;
   display: flex;
@@ -2339,7 +2352,7 @@ main > * {
     font-size: 50px;
     line-height: 110%;
     letter-spacing: -0.02em;
-    gap: 8px;
+    gap: 16px;
     flex-wrap: wrap;
     justify-content: flex-start;
     width: 359px;
@@ -2353,6 +2366,10 @@ main > * {
 
   .process-step-tags {
     gap: 6px;
+  }
+
+  .process-step-top {
+    align-items: center !important;
   }
 }
 
@@ -2924,7 +2941,7 @@ main > * {
   .wyg-card-right {
     width: 100%;
     height: auto;
-    min-height: 260px;
+    min-height: unset;
     align-self: auto;
     display: flex;
     flex-direction: column;
@@ -2933,7 +2950,7 @@ main > * {
   }
 
   .wyg-card-right-img-wrap {
-    width: 65%;
+    width: 100%;
     display: flex;
     justify-content: center;
   }
@@ -2941,7 +2958,7 @@ main > * {
   .wyg-card-right-img {
     width: 100% !important;
     height: auto !important;
-    max-height: 320px;
+    max-height: unset !important;
     object-fit: contain !important;
     object-position: bottom center !important;
     position: relative !important;
@@ -3291,22 +3308,35 @@ main > * {
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
-  scroll-snap-type: x mandatory;
+  scroll-snap-type: x proximity;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   width: 100%;
   padding: 0 24px;
   box-sizing: border-box;
   gap: 16px;
+  scroll-behavior: smooth;
 }
 .ind-mobile-scroll::-webkit-scrollbar { display: none; }
 
 .ind-mobile-slide {
-  flex: 0 0 75vw;
-  width: 75vw;
+  flex: 0 0 60vw;
+  width: 60vw;
   scroll-snap-align: center;
   border-radius: 24px;
   overflow: hidden;
+}
+@media (max-width: 425px) {
+  .ind-mobile-slide {
+    flex: 0 0 65vw;
+    width: 65vw;
+  }
+}
+@media (max-width: 375px) {
+  .ind-mobile-slide {
+    flex: 0 0 70vw;
+    width: 70vw;
+  }
 }
 .ind-mobile-slide img {
   width: 100%;
@@ -5221,24 +5251,19 @@ main > * {
     gap: 12px;
     margin-top: 24px;
     align-items: stretch;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding: 0 15%;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    overflow: hidden;
     padding: 0 15%;
     box-sizing: border-box;
   }
-  .reviews-cards-row::-webkit-scrollbar { display: none; }
-  .reviews-card-wrapper {
+  .reviews-card-wrapper,
+  .reviews-card-wrapper--mid,
+  .reviews-card-wrapper--side {
     flex: 0 0 70%;
     min-width: 0;
-    scroll-snap-align: center;
+    display: flex;
+    flex-direction: column;
   }
-  .reviews-card-wrapper--mid {
-    flex: 0 0 70%;
-  }
-  .reviews-card { padding: 24px; gap: 22px; border-radius: 20px; min-height: 300px; }
+  .reviews-card { padding: 24px; gap: 22px; border-radius: 20px; }
   .reviews-card-icons { display: none !important; }
   .reviews-card-avatar { width: 44px; height: 44px; }
   .reviews-nav-mobile {
@@ -5257,27 +5282,13 @@ main > * {
   .reviews-section { padding: 0 12px; }
 
   .reviews-images-wrapper {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto auto auto;
-    gap: 8px;
-    height: auto !important;
-    max-width: 100%;
-    margin: 0 auto 24px;
+    height: 200px;
+    margin-bottom: 24px;
   }
   .reviews-img-item {
-    position: static !important;
-    width: 100% !important;
-    height: 140px !important;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-  .reviews-img-item img {
-    position: static !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 10px;
   }
 
   .reviews-nav-mobile {
@@ -5288,15 +5299,21 @@ main > * {
     justify-content: center;
     padding: 20px 0;
     margin-bottom: 4px;
+    order: 10;
   }
   .reviews-card-icons { display: none !important; }
+
+  .reviews-section {
+    display: flex;
+    flex-direction: column;
+  }
 
   .reviews-label { font-size: 11px; }
   .reviews-subtext { font-size: 13px; }
   .reviews-cards-row { gap: 10px; margin-top: 0; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; flex-wrap: nowrap; padding: 0; box-sizing: border-box; }
   .reviews-cards-row::-webkit-scrollbar { display: none; }
-  .reviews-card-wrapper { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; }
-  .reviews-card { padding: 20px; gap: 18px; border-radius: 16px; min-height: 260px; }
+  .reviews-card-wrapper { flex: 0 0 100%; min-width: 0; scroll-snap-align: start; padding-top: 25px; }
+  .reviews-card { padding: 20px; gap: 18px; border-radius: 16px; }
   .reviews-card-top { gap: 12px; }
   .reviews-card-bottom { padding-top: 14px; gap: 8px; }
   .reviews-card-avatar { width: 36px; height: 36px; }

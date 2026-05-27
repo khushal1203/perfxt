@@ -36,7 +36,7 @@ export default function Home() {
       <AnimateOnScroll><Pricing /></AnimateOnScroll>
       <Framer />
       <AnimateOnScroll><Reviews /></AnimateOnScroll>
-      <AnimateOnScroll><AICover /></AnimateOnScroll>
+      <div id="ai-cover"><AnimateOnScroll><AICover /></AnimateOnScroll></div>
       <AnimateOnScroll><FAQ /></AnimateOnScroll>
       <AnimateOnScroll><LastCover /></AnimateOnScroll>
       <AnimateOnScroll><Footer /></AnimateOnScroll>

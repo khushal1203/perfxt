@@ -22,7 +22,7 @@ export default function CTA() {
 
         {/* Right */}
         <div className="cta-right">
-          <a href="https://apps.apple.com/us/app/perfxt/id675893512" target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn--primary">
+          <a href="https://apps.apple.com/us/app/perfxt/id6758935129" target="_blank" rel="noopener noreferrer" className="cta-btn cta-btn--primary">
             <Image src="/images/home/icon2.svg" alt="Start" width={24} height={24} />
             <span>Start Free Trial</span>
           </a>

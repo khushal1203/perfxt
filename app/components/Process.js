@@ -46,11 +46,11 @@ export default function Process() {
       <div className="process-heading-box">
         <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline preload="none" className="process-heading-video process-heading-video--mobile" />
         <h2 className="process-heading">
-          Simple
+          <span>Simple</span>
           <span className="process-heading-img">
             <video src="/images/home/cVideo.mp4" autoPlay loop muted playsInline preload="none" className="process-heading-video" />
           </span>
-          Process
+          <span>Process</span>
         </h2>
         <h2 className="process-heading process-heading--muted">How It Works</h2>
       </div>

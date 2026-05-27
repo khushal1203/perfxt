@@ -39,13 +39,22 @@ const reviews = [
   },
 ];
 
-const images = [
+const desktopImages = [
   { src: "/images/home/rev1.png", top: 140, left: 0 },
   { src: "/images/home/rev2.png", top: 60,  left: 240 },
   { src: "/images/home/rev3.png", top: 0,   left: 480 },
   { src: "/images/home/rev4.png", top: 0,   left: 720 },
   { src: "/images/home/rev5.png", top: 60,  left: 960 },
   { src: "/images/home/rev6.png", top: 140, left: 1200 },
+];
+
+const mobileImages = [
+  { src: "/images/home/rev1.png", top: 100, leftPct: "0%" },
+  { src: "/images/home/rev2.png", top: 40,  leftPct: "17%" },
+  { src: "/images/home/rev3.png", top: 0,   leftPct: "34%" },
+  { src: "/images/home/rev4.png", top: 0,   leftPct: "51%" },
+  { src: "/images/home/rev5.png", top: 40,  leftPct: "68%" },
+  { src: "/images/home/rev6.png", top: 100, leftPct: "85%" },
 ];
 
 export default function Reviews() {
@@ -66,7 +75,7 @@ export default function Reviews() {
   }, []);
 
   useEffect(() => {
-    if ((!isTablet && !isMobile) || !rowRef.current) return;
+    if (!isMobile || !rowRef.current) return;
     const row = rowRef.current;
     const card = row.children[start];
     if (!card) return;
@@ -89,14 +98,23 @@ export default function Reviews() {
 
   const visible = [reviews[start % total], reviews[(start + 1) % total], reviews[(start + 2) % total]];
 
+  const tabletVisible = [
+    reviews[(start - 1 + total) % total],
+    reviews[start % total],
+    reviews[(start + 1) % total],
+  ];
+
   return (
     <section className="reviews-section">
       <div className="reviews-images-wrapper">
-        {images.map((img, i) => (
+        {(isMobile ? mobileImages : desktopImages).map((img, i) => (
           <div
             key={i}
             className={`reviews-img-item reviews-img-${i + 1}`}
-            style={isMobile ? {} : { top: img.top, left: `${(img.left / 1420) * 100}%` }}
+            style={isMobile
+              ? { top: img.top, left: img.leftPct }
+              : { top: img.top, left: `${(img.left / 1420) * 100}%` }
+            }
           >
             <img src={img.src} alt={`review ${i + 1}`} width={220} height={220} />
           </div>
@@ -114,19 +132,28 @@ export default function Reviews() {
         </p>
       </div>
 
-      <div className="reviews-nav-mobile">
-        <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
-          <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
-        </button>
-        <button className="reviews-nav-btn" onClick={next} aria-label="Next">
-          <img src="/images/home/rev9.svg" alt="next" width={32} height={32} />
-        </button>
-      </div>
+      {isTablet && (
+        <div className="reviews-nav-mobile">
+          <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
+            <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
+          </button>
+          <button className="reviews-nav-btn" onClick={next} aria-label="Next">
+            <img src="/images/home/rev9.svg" alt="next" width={32} height={32} />
+          </button>
+        </div>
+      )}
 
       <div ref={rowRef} className="reviews-cards-row">
-        {(isTablet || isMobile ? reviews : visible).map((r, i) => (
-          <div key={i} className={`reviews-card-wrapper${!isTablet && i === 1 ? " reviews-card-wrapper--mid" : ""}`}>
-            {!isTablet && i === 1 && (
+        {(isMobile ? reviews : isTablet ? tabletVisible : visible).map((r, i) => (
+          <div
+            key={i}
+            className={`reviews-card-wrapper${
+              isTablet
+                ? i === 1 ? " reviews-card-wrapper--mid" : " reviews-card-wrapper--side"
+                : !isTablet && i === 1 ? " reviews-card-wrapper--mid" : ""
+            }`}
+          >
+            {!isTablet && !isMobile && i === 1 && (
               <div className="reviews-card-icons">
                 <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
                   <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
@@ -159,6 +186,17 @@ export default function Reviews() {
           </div>
         ))}
       </div>
+
+      {isMobile && (
+        <div className="reviews-nav-mobile">
+          <button className="reviews-nav-btn" onClick={prev} aria-label="Previous">
+            <img src="/images/home/rev8.svg" alt="prev" width={32} height={32} />
+          </button>
+          <button className="reviews-nav-btn" onClick={next} aria-label="Next">
+            <img src="/images/home/rev9.svg" alt="next" width={32} height={32} />
+          </button>
+        </div>
+      )}
     </section>
   );
 }
