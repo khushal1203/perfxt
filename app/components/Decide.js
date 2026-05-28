@@ -1,5 +1,6 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
+import Image from "next/image";
 
 const cards = [
   { src: "/images/home/img1.png", icon: "/images/home/dicon3.svg", title: "Are too many calls draining the rest of your week?", label: "Call budget", value: "3/5", desc: "Your HRV, strain and sleep profile tell us when training today helps your performance - and when it quietly drains it." },
@@ -30,13 +31,17 @@ export default function Decide() {
     const STEP = CARD_W + GAP;
     const TOTAL = STEP * cards.length;
     const SPEED = 0.5;
+    let lastTime = null;
 
-    const animate = () => {
+    const animate = (timestamp) => {
       if (!isDragging.current) {
-        posRef.current += SPEED;
-        if (posRef.current >= TOTAL) posRef.current -= TOTAL;
-        if (posRef.current < 0) posRef.current += TOTAL;
-        track.style.transform = `translateX(-${posRef.current}px)`;
+        if (lastTime !== null) {
+          posRef.current += SPEED;
+          if (posRef.current >= TOTAL) posRef.current -= TOTAL;
+          if (posRef.current < 0) posRef.current += TOTAL;
+          track.style.transform = `translateX(-${posRef.current}px)`;
+        }
+        lastTime = timestamp;
       }
       animRef.current = requestAnimationFrame(animate);
     };
@@ -118,7 +123,16 @@ export default function Decide() {
         <div className="decide-marquee-track" ref={trackRef}>
           {DOUBLED.map((card, i) => (
             <div key={i} className="decide-card-item">
-              <img src={card.src.replace('.png','.webp')} alt="" draggable={false} className="decide-card-bg" />
+              <Image
+                src={card.src.replace('.png', '.webp')}
+                alt=""
+                draggable={false}
+                className="decide-card-bg"
+                width={940}
+                height={1316}
+                sizes="(max-width: 425px) calc(100vw - 32px), (max-width: 768px) calc((100vw - 48px) / 3), (max-width: 1024px) 260px, (max-width: 1440px) 300px, 340px"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", display: "block" }}
+              />
               <div className="decide-card-gradient" />
               <div className="decide-card-content">
                 <div className="decide-card-hover-area">

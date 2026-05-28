@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const navItems = [
@@ -52,7 +53,8 @@ export default function Header() {
         }`}
       >
         {/* Logo */}
-        <div
+        <Link
+          href="/"
           className={`header-logo${
             scrolled ? " header-logo--hidden" : ""
           }`}
@@ -64,7 +66,7 @@ export default function Header() {
             height={26}
             priority
           />
-        </div>
+        </Link>
 
         {/* Desktop Nav */}
         <nav className="header-nav">

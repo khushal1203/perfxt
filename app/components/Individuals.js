@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState, useEffect } from "react";
+import Image from "next/image";
 import dynamic from "next/dynamic";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -129,8 +130,14 @@ export default function Individuals() {
           <div className="ind-mobile-scroll" ref={scrollRef} onScroll={handleScroll}>
             {[...slides, ...slides].map((num, i) => (
               <div key={i} className="ind-mobile-slide">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`/images/mobile/mobile${num}.webp`} alt={`Mobile screen ${num}`} />
+                <Image
+                  src={`/images/mobile/mobile${num}.webp`}
+                  alt={`Mobile screen ${num}`}
+                  width={739}
+                  height={1567}
+                  sizes="65vw"
+                  style={{ width: "100%", height: "auto", display: "block", borderRadius: "24px" }}
+                />
               </div>
             ))}
           </div>
@@ -146,8 +153,14 @@ export default function Individuals() {
             {slides.map((num) => (
               <div key={num} className="ind-slide-item">
                 <div className="ind-phone-frame">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={`/images/mobile/mobile${num}.webp`} alt={`Mobile screen ${num}`} />
+                  <Image
+                    src={`/images/mobile/mobile${num}.webp`}
+                    alt={`Mobile screen ${num}`}
+                    width={739}
+                    height={1567}
+                    sizes="(max-width: 1024px) 30vw, 25vw"
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                  />
                 </div>
               </div>
             ))}

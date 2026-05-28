@@ -93,7 +93,7 @@ export default function Process() {
 
         {/* Right image */}
         <div className="process-right-img">
-          <Image src="/images/home/pcover.webp" alt="process cover" width={1215} height={1026} style={{ width: "100%", height: "auto" }} />
+          <Image src="/images/home/pcover.webp" alt="process cover" width={1215} height={1026} sizes="(max-width: 768px) 100vw, (max-width: 1440px) 50vw, 40vw" style={{ width: "100%", height: "auto" }} loading="lazy" />
         </div>
       </div>
     </section>
