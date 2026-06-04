@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"], weight: ["400", "500"], display: "swap
 
 export const metadata = {
   title: "Perfxt",
-  description: "Perfxt - Landing Page",
+  description: "What We Do!",
   icons: {
     icon: "/favicon.png",
   },
