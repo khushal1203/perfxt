@@ -21,7 +21,7 @@ const boxes = [
       { value: "-37%", label: "Meeting waste" },
       { value: "+24%", label: "Deep work time" },
     ],
-    img: "/images/home/whatm1.webp",
+    img: "/images/home/whatm1.png",
   },
   {
     type: "card1",
@@ -40,7 +40,7 @@ const boxes = [
       { value: "-42%", label: "Meeting waste" },
       { value: "-83%", label: "Burnout flags" },
     ],
-    img: "/images/home/whatm2.webp",
+    img: "/images/home/whatm2.png",
   },
   {
     type: "card1",
@@ -60,7 +60,7 @@ const boxes = [
       { value: "+31%", label: "Focused work sessions" },
       { value: "-41%", label: "Overload days" },
     ],
-    img: "/images/home/whatm3.webp",
+    img: "/images/home/whatm3.png",
   },
   {
     type: "card1",
@@ -80,7 +80,7 @@ const boxes = [
       { value: "+48%", label: "Energy consistency" },
       { value: "3.2x", label: "Recovery awareness" },
     ],
-    img: "/images/home/whatm4.webp",
+    img: "/images/home/whatm4.png",
   },
 ];
 

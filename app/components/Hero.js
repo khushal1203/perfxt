@@ -57,7 +57,7 @@ export default function Hero() {
       <div className="hero-bottom-img">
         <div className="hero-img-default">
           <Image
-            src="/images/home/hero1.webp"
+            src="/images/home/hero1.png"
             alt="Hero dashboard"
             width={1367}
             height={936}
@@ -67,7 +67,7 @@ export default function Hero() {
         </div>
         <div className="hero-img-mobile">
           <Image
-            src="/images/home/hero2.webp"
+            src="/images/home/hero2.png"
             alt="Hero dashboard"
             width={1367}
             height={936}

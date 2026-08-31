@@ -7,7 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Slider = dynamic(() => import("react-slick"), { ssr: false });
 
-const slides = [1, 2, 3, 4, 5];
+const slides = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
 
 const slickSettings = {
   infinite: true,
@@ -131,7 +131,7 @@ export default function Individuals() {
             {[...slides, ...slides].map((num, i) => (
               <div key={i} className="ind-mobile-slide">
                 <Image
-                  src={`/images/mobile/mobile${num}.webp`}
+                  src={`/images/mobile/mobile${num}.png`}
                   alt={`Mobile screen ${num}`}
                   width={739}
                   height={1567}
@@ -154,7 +154,7 @@ export default function Individuals() {
               <div key={num} className="ind-slide-item">
                 <div className="ind-phone-frame">
                   <Image
-                    src={`/images/mobile/mobile${num}.webp`}
+                    src={`/images/mobile/mobile${num}.png`}
                     alt={`Mobile screen ${num}`}
                     width={739}
                     height={1567}

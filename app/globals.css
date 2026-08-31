@@ -3015,6 +3015,7 @@ main > * {
     object-position: bottom center !important;
     position: relative !important;
     inset: unset !important;
+    margin-left: 0px !important;
   }
 
   .wyg-card-feature-text {
